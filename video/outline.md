@@ -24,7 +24,7 @@ switch.** Picture can cut; audio across a rig change cannot. Say so on screen on
 | 1 | Cold open | 0:00–0:20 | Playing, close on hands and foot. Mid-phrase, a stomp: the sound changes completely — clean to a stacked high-gain rig — with no gap. Again, to something absurd. No narration | C6, C7 |
 | 2 | Title | 0:20–0:30 | The 3D model turns into view; **pedal.science**. Sub-line: "An open-source effects unit for guitar, bass and vocals. Build one." | — |
 | 3 | What it is | 0:30–0:55 | Narrated over the model coming apart into its parts, then the real boards and the rig designer. On screen: "Audio in this video: the pedal's output, unedited across switches" | C9 |
-| 4 | More models | 0:55–1:30 | A rig being built in the designer, block by block, amps stacked into amps, IRs after them. The engine's own load meter on screen. On screen: "2× faster A2 Full, 3× faster A2 Lite — on a Raspberry Pi 5" and "9 A2 Full models on one core" | C1–C5 |
+| 4 | More models | 0:55–1:30 | A rig being built in the designer, block by block, amps stacked into amps, IRs after them. The engine's own load meter on screen. On screen: "2× faster A2 Full, 3× faster A2 Lite — on a Raspberry Pi 5" and "8 full-quality NAM models at once on a Pi 5" | C1–C5 |
 | 5 | Seamless | 1:30–2:10 | A knob swept while playing; a block dragged in while playing; then whole, fully loaded rigs switched mid-phrase with stomps, the output waveform drawn underneath so the switch is visible and the join isn't. On screen: "Extremely low latency switching, even of a fully loaded rig. No audible switching artefacts, no dropouts." | C6, C7 |
 | 6 | Further than the market | 2:10–2:30 | Narration over the loaded rig and the switch: more NAM and IR per rig than any product on the market; switching that load without a trace; and open | message.md, "Where it surpasses" |
 | 7 | Yours | 2:30–3:05 | The 3D model exploded and labelled: case, screen, Pi 5, Pico 2, codec, input and output boards, footswitches. Then the schematic, a board layout drawn from data, the bill of materials. "Build one for yourself, or for others." Audio quality said here, briefly, with the measurement pages on screen | C8–C12 |
@@ -41,7 +41,7 @@ Plain, first person, unhurried. About 320 words.
 > **(4)** The amp models are NAM — Neural Amp Modeler — at its highest quality. Running them on a
 > small computer is the hard part, so I rewrote the core of NAM's processing for this processor, and
 > offered it back to the NAM project: twice as fast for the full models, three times for the light
-> ones. One core of this Pi now runs nine full models at once. Long cabinet IRs got the same
+> ones. This Pi now runs eight full models at once. Long cabinet IRs got the same
 > treatment.
 >
 > **(5)** Changing sound should never cost you a note. Turn a knob and the change is smoothed sample

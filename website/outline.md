@@ -45,7 +45,7 @@ doc until the page exists).
 
 | Card | Headline | Sentence | Claims |
 |---|---|---|---|
-| More models | **9** full-quality NAM models on one core of a Raspberry Pi 5 | Hand-written NEON kernels make NAM's A2 models 2–3× faster on the Pi 5, and long IRs a fraction of the cost — contributed back to NAM | C1–C5 |
+| More models | **8** full-quality NAM models in use all at once on a Pi 5 | Hand-written NEON kernels make NAM's A2 models 2–3× faster on the Pi 5, and long IRs a fraction of the cost — contributed back to NAM | C1–C5 |
 | Seamless | **Extremely low latency switching**, even of a fully loaded rig | No audible switching artefacts, no dropouts | C6, C7 |
 | Excellent audio | **Excellent audio quality** | A clean signal path, with every measurement published | C8 |
 | Yours | **Open** designs, standard parts | Pi 5, Pico 2, a codec board, analogue boards you can solder: build one for yourself, or for others | C9–C11 |

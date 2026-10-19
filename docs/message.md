@@ -38,8 +38,8 @@ holds the evidence behind each.
 ### 1. More of the best NAM models, at once
 
 - **Say:** NAM's A2 models run **2× faster (A2 Full) and 3× faster (A2 Lite)** on the Raspberry Pi
-  5's processor, from hand-written NEON kernels contributed to NAM. **9 A2 Full models on one core
-  of a Raspberry Pi 5**, or 30 A2 Lite. IRs too: the convolver behind them is faster at long IRs,
+  5's processor, from hand-written NEON kernels contributed to NAM. **8 full-quality NAM models in
+  use all at once on a Pi 5** — a conservative figure: one core measured 9. IRs too: the convolver behind them is faster at long IRs,
   also contributed.
 - All headline numbers are the Pi 5's. Mac figures exist in NAMBench but are not the target and are
   not used.
