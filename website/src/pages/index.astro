@@ -8,23 +8,23 @@ const gh = (repo: string) => `https://github.com/pedal-science/${repo}`;
 const pillars = [
 	{
 		kicker: 'More models',
-		headline: '9 full-quality NAM models on one core of a Raspberry Pi 5',
-		body: 'Hand-written NEON kernels make NAM’s A2 models 2× faster (A2 Full) and 3× faster (A2 Lite) on the Pi 5’s processor, and long cabinet IRs cost a fraction of what they did. Both are contributed back to NAM.',
+		headline: '8 full-quality NAM models in use all at once on a Pi 5',
+		body: 'Hand optimised code makes NAM’s A2 models 2× faster (A2 Full) and 3× faster (A2 Lite) on a Pi 5’s processor. Both are contributed back to the NAM project.',
 	},
 	{
 		kicker: 'Seamless',
 		headline: 'Extremely low latency switching, even of a fully loaded rig',
-		body: 'No audible switching artefacts, no dropouts. Turn a knob, add a block, or change the whole rig: you hear the change, never the join.',
+		body: 'No audible switching artefacts, no dropouts.',
 	},
 	{
 		kicker: 'Excellent audio',
 		headline: 'Excellent audio quality',
-		body: 'A clean signal path from the input jack to the outputs, with every measurement behind it published.',
+		body: 'A clean signal path from the input jack to the outputs.',
 	},
 	{
 		kicker: 'Yours',
 		headline: 'Open designs, standard parts',
-		body: 'A Raspberry Pi 5, a Raspberry Pi Pico 2, a codec board and analogue boards you can solder: build one for yourself, repair one, or build them for others.',
+    body: 'A Pi 5, a Pico 2, a codec board and some analogue boards you can make.'
 	},
 ];
 
@@ -33,7 +33,7 @@ const pillars = [
 const parts = [
 	{
 		name: 'Core',
-		desc: 'The processing unit. Its job is to do the effects processing. It doesn’t need much RAM, but it does need a little processing power.',
+		desc: 'The processing unit. Its job is to handle the effects. It doesn’t need much RAM, but it does need a little processing power.',
 		options: [{ example: 'Raspberry Pi 5 with 1GB RAM', gbp: 40 }],
 	},
 	{
@@ -71,13 +71,12 @@ const parts = [
 ];
 
 const repos = [
-	{ name: 'pedal.project', what: 'The pedal as a system: hardware design, schematics, board layouts, the enclosure, the plan, the Pico firmware and the pedal service' },
-	{ name: 'namchain', what: 'The real-time engine that renders the rig and switches it without a trace' },
-	{ name: 'ljoss', what: 'The rig designer, for Mac, iPhone and iPad, editing the pedal live over Wi-Fi' },
+	{ name: 'pedal.project', what: 'Hardware design, schematics, the plan, Pico firmware' },
+	{ name: 'namchain', what: 'The real-time engine that runs the rigs' },
+	{ name: 'ljoss', what: 'A rig design and live control app, for Mac, iPhone and iPad' },
 	{ name: 'rigpa', what: 'The pedal’s own touchscreen UI' },
-	{ name: 'rtpi', what: 'The real-time Linux kernel, and a boot that falls back by itself' },
-	{ name: 'NAMBench', what: 'NAM and IR kernel research and benchmarks' },
-	{ name: 'comms', what: 'This website and the video, and the evidence behind every claim' },
+	{ name: 'rtpi', what: 'The configuration and deployment manager for the real-time Linux kernel' },
+	{ name: 'NAMBench', what: 'NAM and IR optimisation research and benchmarks' },
 ];
 ---
 <Base
