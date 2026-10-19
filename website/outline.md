@@ -123,13 +123,14 @@ section; the hero uses a pre-rendered loop, which loads faster.
 ## Decided (2026-10-19)
 
 - Name and domain: **pedal.science**.
-- All the repositories will be public; the site links to them.
+- All the repositories are public, in the `pedal-science` GitHub org; the site links to them.
+- Licence: **MIT** for every repository, software and hardware designs alike (a `LICENSE` file at
+  each repository's top level).
 - Publishing does not wait on re-measurement or comparisons.
 - The 3D model of the new enclosure and screen is used on the site.
 
 ## Still open
 
-1. **Licences** for the software and the hardware designs (e.g. an OSI licence for code, CERN-OHL
-   for hardware). Check what each repo carries today; the site states them.
-2. **The 3D model** has to be made: the existing one is the old 1590DD layout, and the new panel
-   layout is not designed (claim C12).
+1. **The panel layout.** The 3D model exists (`pedal.project/enclosure/`, the console model) and the
+   site uses its renders, but its control positions are provisional until the layout is designed
+   (claim C12); re-render when it is.
