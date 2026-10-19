@@ -3,7 +3,7 @@
 // ../docs/claims.md, worded as that register's "Public wording" column.
 import Base from '../layouts/Base.astro';
 
-const gh = (repo: string, owner = 'rikkus') => `https://github.com/${owner}/${repo}`;
+const gh = (repo: string) => `https://github.com/pedal-science/${repo}`;
 
 const pillars = [
 	{
@@ -35,7 +35,7 @@ const repos = [
 	{ name: 'rigpa', what: 'The pedal’s own touchscreen UI' },
 	{ name: 'rtpi', what: 'The real-time Linux kernel, and a boot that falls back by itself' },
 	{ name: 'NAMBench', what: 'NAM and IR kernel research and benchmarks' },
-	{ name: 'comms', owner: 'pedal-science', what: 'This website and the video, and the evidence behind every claim' },
+	{ name: 'comms', what: 'This website and the video, and the evidence behind every claim' },
 ];
 ---
 <Base
@@ -163,7 +163,7 @@ const repos = [
 			<ul class="repos">
 				{repos.map((r) => (
 					<li>
-						<a href={gh(r.name, r.owner)}>{r.name}</a>
+						<a href={gh(r.name)}>{r.name}</a>
 						<span>{r.what}</span>
 					</li>
 				))}
