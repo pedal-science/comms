@@ -1,0 +1,11 @@
+{
+	"$schema": "./node_modules/wrangler/config-schema.json",
+	// Must match the Worker's name in the Cloudflare dashboard.
+	"name": "pedal-science-website",
+	"compatibility_date": "2026-10-01",
+	// A static site: no Worker script, only Astro's build output.
+	"assets": {
+		"directory": "./dist",
+		"not_found_handling": "404-page"
+	}
+}

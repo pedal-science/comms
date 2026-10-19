@@ -1,0 +1,320 @@
+---
+// The overview page: website/outline.md, "The overview page". Every claim here is a row in
+// ../docs/claims.md, worded as that register's "Public wording" column.
+import Base from '../layouts/Base.astro';
+
+const gh = (repo: string) => `https://github.com/rikkus/${repo}`;
+
+const pillars = [
+	{
+		kicker: 'More models',
+		headline: '9 full-quality NAM models on one core of a Raspberry Pi 5',
+		body: 'Hand-written NEON kernels make NAM’s A2 models 2× faster (A2 Full) and 3× faster (A2 Lite) on the Pi 5’s processor, and long cabinet IRs cost a fraction of what they did. Both are contributed back to NAM.',
+	},
+	{
+		kicker: 'Seamless',
+		headline: 'Extremely low latency switching, even of a fully loaded rig',
+		body: 'No audible switching artefacts, no dropouts. Turn a knob, add a block, or change the whole rig: you hear the change, never the join.',
+	},
+	{
+		kicker: 'Excellent audio',
+		headline: 'Excellent audio quality',
+		body: 'A clean signal path from the input jack to the outputs, with every measurement behind it published.',
+	},
+	{
+		kicker: 'Yours',
+		headline: 'Open designs, standard parts',
+		body: 'A Raspberry Pi 5, a Raspberry Pi Pico 2, a codec board and analogue boards you can solder: build one for yourself, repair one, or build them for others.',
+	},
+];
+
+const repos = [
+	{ name: 'pedal.project', what: 'The pedal as a system: hardware design, schematics, board layouts, the enclosure, the plan, the Pico firmware and the pedal service' },
+	{ name: 'namchain', what: 'The real-time engine that renders the rig and switches it without a trace' },
+	{ name: 'ljoss', what: 'The rig designer, for Mac, iPhone and iPad, editing the pedal live over Wi-Fi' },
+	{ name: 'rigpa', what: 'The pedal’s own touchscreen UI' },
+	{ name: 'rtpi', what: 'The real-time Linux kernel, and a boot that falls back by itself' },
+	{ name: 'NAMBench', what: 'NAM and IR kernel research and benchmarks' },
+	{ name: 'comms', what: 'This website and the video, and the evidence behind every claim' },
+];
+---
+<Base
+	title="pedal.science"
+	description="An open-source, open-design effects unit for guitar, bass and vocals: neural amp models, IRs and seamless rig switching on a Raspberry Pi 5."
+>
+	<header class="hero">
+		<div class="wrap">
+			<p class="brand">pedal.science</p>
+			<h1>An effects unit you can build. Open from the code to the circuit boards.</h1>
+			<p class="lede">
+				For guitar, bass and vocals. Neural amp models (NAM) and IRs, with capabilities that rival
+				— and in places surpass — commercial units.
+			</p>
+			<p class="actions">
+				<a class="button" href={gh('pedal.project')}>See the designs</a>
+			</p>
+		</div>
+		<figure class="hero-image">
+			<img
+				src="/renders/console_1_hero.jpg"
+				width="1920"
+				height="1080"
+				alt="Design render of the pedal: a black sloped console with a wide touchscreen above a row of six footswitches."
+			/>
+			<figcaption>Design render. The panel layout is provisional.</figcaption>
+		</figure>
+	</header>
+
+	<main>
+		<section class="wrap what">
+			<h2>What it is</h2>
+			<p>
+				A Raspberry Pi 5 runs neural captures of real amps and cabinets. You design your rig on a
+				phone, tablet or Mac, or on the pedal’s own touchscreen. Everything — the software, the
+				schematics, the board layouts, the enclosure and the measurements — is published, so anyone
+				can build one or change it.
+			</p>
+		</section>
+
+		<section class="wrap" aria-labelledby="pillars">
+			<h2 id="pillars">What it does</h2>
+			<ul class="pillars">
+				{pillars.map((p) => (
+					<li>
+						<p class="kicker">{p.kicker}</p>
+						<h3>{p.headline}</h3>
+						<p>{p.body}</p>
+					</li>
+				))}
+			</ul>
+		</section>
+
+		<section class="wrap further" aria-labelledby="further">
+			<h2 id="further">Further than what’s on the market</h2>
+			<ul>
+				<li>
+					<strong>More NAM and IR per rig than any product on the market supports today.</strong>
+					The optimisations are public, so others can catch up — but their code and designs aren’t
+					open, and these are.
+				</li>
+				<li>
+					<strong>Low-latency switching at that load, without dropouts or audible artefacts.</strong>
+				</li>
+			</ul>
+		</section>
+
+		<section class="hardware" aria-labelledby="hardware">
+			<div class="wrap">
+				<h2 id="hardware">The hardware</h2>
+				<p>
+					A Hammond sloped console holds an 8.8″ touchscreen, six footswitches and the controls. Inside:
+					a Raspberry Pi 5 for the audio and the screen, a Pico 2 for the footswitches, MIDI and
+					controls, a WM8960 codec, and through-hole input and output boards. The schematics are
+					generated from wiring tables and checked against KiCad’s netlist; the board layouts are data,
+					checked against the same netlist.
+				</p>
+			</div>
+			<figure class="wide">
+				<img
+					src="/renders/console_2_exploded.jpg"
+					width="1920"
+					height="1080"
+					loading="lazy"
+					alt="Exploded design render: the console cover with footswitches and controls, the touchscreen, the Raspberry Pi 5, Pico 2, codec, input board and output boards, above the case base."
+				/>
+				<figcaption>Design render, exploded. The panel layout is provisional, not for drilling.</figcaption>
+			</figure>
+		</section>
+
+		<section class="wrap status" aria-labelledby="status">
+			<div class="box">
+				<h2 id="status">Where it stands</h2>
+				<p class="date">19 October 2026</p>
+				<p>
+					It plays: heavy rigs, edited live and switched, on the pedal’s own hardware. Next come the
+					case, the screen and the footswitches.
+				</p>
+			</div>
+		</section>
+
+		<section class="wrap" aria-labelledby="where">
+			<h2 id="where">Where to go</h2>
+			<ul class="repos">
+				{repos.map((r) => (
+					<li>
+						<a href={gh(r.name)}>{r.name}</a>
+						<span>{r.what}</span>
+					</li>
+				))}
+			</ul>
+		</section>
+
+		<section class="wrap credits" aria-labelledby="credits">
+			<h2 id="credits">Credits</h2>
+			<p>
+				Built on <a href="https://www.neuralampmodeler.com/">Neural Amp Modeler</a>, by Steven Atkinson
+				and its community, and on the captures and IRs of the people who publish them. It also stands on
+				Linux and PREEMPT_RT, Qt, and the Raspberry Pi’s open documentation.
+			</p>
+		</section>
+	</main>
+
+	<footer class="wrap">
+		<p>pedal.science is a project, not a product: nothing here is for sale.</p>
+	</footer>
+</Base>
+
+<style>
+	.wrap {
+		max-width: 72rem;
+		margin-inline: auto;
+		padding-inline: 16px;
+	}
+	section {
+		margin-block: 4.5rem;
+	}
+	h2 {
+		font-size: 1.6rem;
+		margin: 0 0 1rem;
+	}
+	section > p,
+	.what p,
+	.hardware p {
+		max-width: var(--measure);
+	}
+
+	.hero {
+		padding-top: 2.5rem;
+	}
+	.brand {
+		font-weight: 700;
+		letter-spacing: 0.02em;
+		color: var(--accent);
+		margin: 0 0 1.5rem;
+	}
+	.hero h1 {
+		font-size: clamp(2rem, 5.5vw, 3.6rem);
+		max-width: 20ch;
+		margin: 0 0 1rem;
+	}
+	.lede {
+		font-size: 1.2rem;
+		color: var(--muted);
+		max-width: 52ch;
+		margin: 0 0 1.5rem;
+	}
+	.button {
+		display: inline-block;
+		background: var(--accent);
+		color: var(--accent-ink);
+		padding: 0.7rem 1.2rem;
+		border-radius: 8px;
+		font-weight: 600;
+		text-decoration: none;
+	}
+	.hero-image,
+	.wide {
+		margin: 2.5rem auto 0;
+		max-width: 96rem;
+	}
+	figcaption {
+		color: var(--muted);
+		font-size: 0.85rem;
+		padding: 0.5rem 16px 0;
+		text-align: center;
+	}
+
+	.pillars {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: grid;
+		gap: 1rem;
+		grid-template-columns: 1fr;
+	}
+	@media (min-width: 40rem) {
+		.pillars {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+	@media (min-width: 68rem) {
+		.pillars {
+			grid-template-columns: repeat(4, 1fr);
+		}
+	}
+	.pillars li {
+		background: var(--bg-raised);
+		border: 1px solid var(--line);
+		border-radius: 12px;
+		padding: 1.4rem;
+	}
+	.kicker {
+		text-transform: uppercase;
+		font-size: 0.75rem;
+		letter-spacing: 0.08em;
+		color: var(--accent);
+		margin: 0 0 0.6rem;
+		font-weight: 600;
+	}
+	.pillars h3 {
+		font-size: 1.3rem;
+		margin: 0 0 0.7rem;
+	}
+	.pillars li p:last-child {
+		margin: 0;
+		color: var(--muted);
+	}
+
+	.further ul {
+		max-width: var(--measure);
+		padding-left: 1.2rem;
+	}
+	.further li {
+		margin-bottom: 0.8rem;
+	}
+
+	.box {
+		border-left: 3px solid var(--accent);
+		padding-left: 1.2rem;
+	}
+	.date {
+		color: var(--muted);
+		margin: -0.6rem 0 0.6rem;
+		font-size: 0.9rem;
+	}
+
+	.repos {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: grid;
+		gap: 0.2rem;
+	}
+	.repos li {
+		display: grid;
+		grid-template-columns: 9rem 1fr;
+		gap: 1rem;
+		padding: 0.6rem 0;
+		border-bottom: 1px solid var(--line);
+	}
+	.repos a {
+		font-weight: 600;
+	}
+	.repos span {
+		color: var(--muted);
+	}
+	@media (max-width: 36rem) {
+		.repos li {
+			grid-template-columns: 1fr;
+			gap: 0.1rem;
+		}
+	}
+
+	footer {
+		color: var(--muted);
+		font-size: 0.9rem;
+		padding-top: 1rem;
+		padding-bottom: 3rem;
+		border-top: 1px solid var(--line);
+	}
+</style>

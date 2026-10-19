@@ -1,0 +1,81 @@
+---
+interface Props {
+	title: string;
+	description: string;
+}
+const { title, description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonical} />
+		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={new URL('/renders/console_1_hero.jpg', Astro.site)} />
+		<meta name="color-scheme" content="dark light" />
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>
+
+<style is:global>
+	:root {
+		--bg: #0f1012;
+		--bg-raised: #17191c;
+		--line: #2a2d32;
+		--text: #e9e7e3;
+		--muted: #a3a09a;
+		--accent: #e9a46a;
+		--accent-ink: #1a1208;
+		--measure: 68ch;
+		color-scheme: dark;
+	}
+	@media (prefers-color-scheme: light) {
+		:root {
+			--bg: #f7f5f2;
+			--bg-raised: #ffffff;
+			--line: #dedad3;
+			--text: #1b1b1d;
+			--muted: #5f5b55;
+			--accent: #a8541c;
+			--accent-ink: #ffffff;
+			color-scheme: light;
+		}
+	}
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+	}
+	html {
+		-webkit-text-size-adjust: 100%;
+	}
+	body {
+		margin: 0;
+		background: var(--bg);
+		color: var(--text);
+		font: 17px/1.6 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+	}
+	img {
+		max-width: 100%;
+		height: auto;
+		display: block;
+	}
+	a {
+		color: var(--accent);
+		text-underline-offset: 0.2em;
+	}
+	h1,
+	h2,
+	h3 {
+		line-height: 1.15;
+		letter-spacing: -0.01em;
+	}
+</style>
