@@ -1,4 +1,10 @@
 ---
+import '@fontsource/piazzolla/latin-600.css';
+import '@fontsource/piazzolla/latin-900.css';
+import '@fontsource/roboto/latin-400.css';
+import '@fontsource/roboto/latin-500.css';
+import '@fontsource/roboto/latin-700.css';
+
 interface Props {
 	title: string;
 	description: string;
@@ -18,7 +24,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={new URL('/renders/console_1_hero.jpg', Astro.site)} />
-		<meta name="color-scheme" content="dark light" />
+		<meta name="color-scheme" content="light dark" />
 	</head>
 	<body>
 		<slot />
@@ -26,27 +32,39 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 </html>
 
 <style is:global>
+	/* Light: a white page, a muted yellow sidebar, blue-teal ink and a coral accent. Dark: a
+	   near-black page, a muted dark orange sidebar and very light blue-grey text. */
 	:root {
-		--bg: #0f1012;
-		--bg-raised: #17191c;
-		--line: #2a2d32;
-		--text: #e9e7e3;
-		--muted: #a3a09a;
-		--accent: #e9a46a;
-		--accent-ink: #1a1208;
+		--page: #ffffff;
+		--raised: #fbf9f4;
+		--line: #e3ddcf;
+		--text: #1d2a33;
+		--ink: #0b5266;
+		--muted: #56636d;
+		--accent: #c64538;
+		--button: #c64538;
+		--accent-ink: #ffffff;
+		--sidebar: #ebdcab;
+		--tab: #ffffff;
 		--measure: 68ch;
-		color-scheme: dark;
+		--serif: 'Piazzolla', Georgia, serif;
+		--sans: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+		color-scheme: light;
 	}
-	@media (prefers-color-scheme: light) {
+	@media (prefers-color-scheme: dark) {
 		:root {
-			--bg: #f7f5f2;
-			--bg-raised: #ffffff;
-			--line: #dedad3;
-			--text: #1b1b1d;
-			--muted: #5f5b55;
-			--accent: #a8541c;
-			--accent-ink: #ffffff;
-			color-scheme: light;
+			--page: #121519;
+			--raised: #1a1e23;
+			--line: #2d333b;
+			--text: #dbe3ea;
+			--ink: #e8eef3;
+			--muted: #9eabb6;
+			--accent: #f07b6d;
+			--button: #c64538;
+			--accent-ink: #1a1210;
+			--sidebar: #5b3d26;
+			--tab: #121519;
+			color-scheme: dark;
 		}
 	}
 	*,
@@ -57,11 +75,16 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 	html {
 		-webkit-text-size-adjust: 100%;
 	}
+	@media (prefers-reduced-motion: no-preference) {
+		html {
+			scroll-behavior: smooth;
+		}
+	}
 	body {
 		margin: 0;
-		background: var(--bg);
+		background: var(--page);
 		color: var(--text);
-		font: 17px/1.6 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+		font: 400 17px/1.6 var(--sans);
 	}
 	img {
 		max-width: 100%;
@@ -69,13 +92,22 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 		display: block;
 	}
 	a {
+		color: inherit;
+		text-decoration: underline;
+		text-decoration-color: var(--accent);
+		text-decoration-thickness: 1px;
+		text-underline-offset: 0.22em;
+		transition: color 0.2s ease;
+	}
+	a:hover {
 		color: var(--accent);
-		text-underline-offset: 0.2em;
 	}
 	h1,
 	h2,
 	h3 {
+		font-family: var(--serif);
+		font-weight: 600;
 		line-height: 1.15;
-		letter-spacing: -0.01em;
+		color: var(--ink);
 	}
 </style>

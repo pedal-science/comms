@@ -70,6 +70,15 @@ const parts = [
 	},
 ];
 
+const sections = [
+	{ id: 'overview', label: 'Overview' },
+	{ id: 'pillars', label: 'What it does' },
+	{ id: 'further', label: 'Further' },
+	{ id: 'hardware', label: 'Hardware' },
+	{ id: 'where', label: 'Where to go' },
+	{ id: 'credits', label: 'Credits' },
+];
+
 const repos = [
 	{ name: 'pedal.project', what: 'Hardware design, schematics, the plan, Pico firmware' },
 	{ name: 'namchain', what: 'The real-time engine that runs the rigs' },
@@ -83,63 +92,84 @@ const repos = [
 	title="pedal.science"
 	description="An open-source, open-design effects unit for guitar, bass and vocals: neural amp models, IRs and seamless rig switching on a Raspberry Pi."
 >
-	<header class="hero">
-		<div class="wrap">
-			<p class="brand">pedal.science</p>
-      <h1>An effects unit <em>you</em> can build. Open source code and designs.</h1>
-			<ul class="lede">
-        <li>For guitar, bass and vocals</li>
-        <li>Optimised Neural Amp Models (NAM) and IRs</li>
-        <li>with capabilities that rival — and in places surpass — commercial units</li>
-      </ul>
-			<p class="actions">
-				<a class="button" href="https://github.com/pedal-science/">
-          <img src="icons/github-white.svg"/>
-          Code and designs
-        </a>
-			</p>
-		</div>
-		<figure class="hero-image">
-			<img
-				src="/renders/console_1_hero.jpg"
-				width="1920"
-				height="1080"
-				alt="Design render of the pedal: a black sloped console with a wide touchscreen above a row of five footswitches."
-			/>
-		</figure>
-	</header>
+	<div class="layout">
+		<header class="sidebar">
+			<div class="sidebar-inner">
+				<p class="title" aria-label="pedal.science"><span>pedal</span><span>science</span></p>
+				<p class="tagline">An open-source effects unit for guitar, bass and vocals</p>
+				<p class="info">
+					Code and designs under the MIT licence.<br />
+					Made by Rik Hemsley.
+				</p>
+				<a class="gh" href="https://github.com/pedal-science/">
+					<span class="gh-mark"><img src="/icons/github-white.svg" alt="" width="26" height="26" /></span>
+					Code and designs on GitHub
+				</a>
+			</div>
+		</header>
 
-	<main>
-		<section class="wrap" aria-labelledby="pillars">
-			<h2 id="pillars">What it does</h2>
-			<ul class="pillars">
-				{pillars.map((p) => (
-					<li>
-						<p class="kicker">{p.kicker}</p>
-						<h3>{p.headline}</h3>
-						<p>{p.body}</p>
-					</li>
+		<nav class="tabs" aria-label="Sections">
+			<ul>
+				{sections.map((t) => (
+					<li><a href={`#${t.id}`}>{t.label}</a></li>
 				))}
 			</ul>
-		</section>
+		</nav>
 
-		<section class="wrap further" aria-labelledby="further">
-			<h2 id="further">Further than what’s on the market</h2>
-			<ul>
-				<li>
-					<strong>More NAM and IR per rig than any product on the market supports today.</strong>
-					The optimisations are public, so others can catch up — but their code and designs aren’t
-					open, and these are.
-				</li>
-				<li>
-					<strong>Low-latency switching at that load, without dropouts or audible artefacts.</strong>
-				</li>
-			</ul>
-		</section>
+		<div class="content">
+			<main>
+				<section id="overview" class="hero" aria-label="Overview">
+					<h1>An effects unit <em>you</em> can build. Open source code and designs.</h1>
+					<ul class="lede">
+						<li>For guitar, bass and vocals</li>
+						<li>Optimised Neural Amp Models (NAM) and IRs</li>
+						<li>with capabilities that rival — and in places surpass — commercial units</li>
+					</ul>
+					<p class="actions">
+						<a class="button" href="https://github.com/pedal-science/">
+							<img src="/icons/github-white.svg" alt="" width="20" height="20" />
+							Code and designs
+						</a>
+					</p>
+					<figure>
+						<img
+							src="/renders/console_1_hero.jpg"
+							width="1920"
+							height="1080"
+							alt="Design render of the pedal: a black sloped console with a wide touchscreen above a row of five footswitches."
+						/>
+					</figure>
+				</section>
 
-		<section class="hardware" aria-labelledby="hardware">
-			<div class="wrap">
-				<h2 id="hardware">Hardware</h2>
+				<section aria-labelledby="pillars">
+					<h2 id="pillars">What it does</h2>
+					<ul class="pillars">
+						{pillars.map((p) => (
+							<li>
+								<p class="kicker">{p.kicker}</p>
+								<h3>{p.headline}</h3>
+								<p>{p.body}</p>
+							</li>
+						))}
+					</ul>
+				</section>
+
+				<section class="further" aria-labelledby="further">
+					<h2 id="further">Further than what’s on the market</h2>
+					<ul>
+						<li>
+							<strong>More NAM and IR per rig than any product on the market supports today.</strong>
+							The optimisations are public, so others can catch up — but their code and designs aren’t
+							open, and these are.
+						</li>
+						<li>
+							<strong>Low-latency switching at that load, without dropouts or audible artefacts.</strong>
+						</li>
+					</ul>
+				</section>
+
+				<section aria-labelledby="hardware">
+					<h2 id="hardware">Hardware</h2>
 				<div class="parts-wrap">
 					<table class="parts">
 						<caption>Prices are approximate, in pounds sterling.</caption>
@@ -170,107 +200,253 @@ const repos = [
 						))}
 					</table>
 				</div>
-      </div>
-			<figure class="wide">
-				<img
-					src="/renders/console_2_exploded.jpg"
-					width="1920"
-					height="1080"
-					loading="lazy"
-					alt="Exploded design render: the console cover with footswitches and controls, the touchscreen, the Raspberry Pi 5, Pico 2, codec, input board and output boards, above the case base."
-				/>
-				<figcaption>Design render, exploded. The panel layout is provisional, not for drilling.</figcaption>
-			</figure>
-		</section>
+					<figure>
+						<img
+							src="/renders/console_2_exploded.jpg"
+							width="1920"
+							height="1080"
+							loading="lazy"
+							alt="Exploded design render: the console cover with footswitches and controls, the touchscreen, the Raspberry Pi 5, Pico 2, codec, input board and output boards, above the case base."
+						/>
+						<figcaption>Design render, exploded. The panel layout is provisional, not for drilling.</figcaption>
+					</figure>
+				</section>
 
-		<section class="wrap" aria-labelledby="where">
-			<h2 id="where">Where to go</h2>
-			<ul class="repos">
-				{repos.map((r) => (
-					<li>
-						<a href={gh(r.name)}>{r.name}</a>
-						<span>{r.what}</span>
-					</li>
-				))}
-			</ul>
-		</section>
+				<section aria-labelledby="where">
+					<h2 id="where">Where to go</h2>
+					<ul class="repos">
+						{repos.map((r) => (
+							<li>
+								<a href={gh(r.name)}>{r.name}</a>
+								<span>{r.what}</span>
+							</li>
+						))}
+					</ul>
+				</section>
 
-		<section class="wrap credits" aria-labelledby="credits">
-			<h2 id="credits">Credits</h2>
-			<p>
-        Built on <a href="https://www.neuralampmodeler.com/">Neural Amp
-          Modeler</a>, by Steven Atkinson and its community, and on the
-        captures and IRs of the people who publish them. It also stands on
-        Linux and PREEMPT_RT, Qt, and the Raspberry Pi’s open documentation.
-			</p>
-		</section>
-	</main>
+				<section class="credits" aria-labelledby="credits">
+					<h2 id="credits">Credits</h2>
+					<p>
+						Built on <a href="https://www.neuralampmodeler.com/">Neural Amp Modeler</a>, by Steven Atkinson
+						and its community, and on the captures and IRs of the people who publish them. It also stands
+						on Linux and PREEMPT_RT, Qt, and the Raspberry Pi’s open documentation.
+					</p>
+				</section>
+			</main>
 
-	<footer class="wrap">
-		<p>pedal.science is a project, not a product. Nothing here is for sale.</p>
-	</footer>
+			<footer>
+				<p>pedal.science is a project, not a product. Nothing here is for sale.</p>
+			</footer>
+		</div>
+	</div>
 </Base>
 
 <style>
-	.wrap {
-		max-width: 72rem;
-		margin-inline: auto;
-		padding-inline: 16px;
+	/* The layout: a sidebar with the name and the project's details, a strip of vertical tabs for
+	   the sections, then the content. Below 64rem the sidebar becomes a header and the tabs a
+	   scrolling row that sticks to the top. */
+	.layout {
+		display: grid;
+		grid-template-columns: 1fr;
+		min-height: 100vh;
 	}
-	section {
-		margin-block: 4.5rem;
+
+	.sidebar {
+		background: var(--sidebar);
+		color: var(--ink);
+		padding: 1.5rem 16px 1.25rem;
 	}
-	h2 {
-		font-size: 1.6rem;
+	.title {
+		font-family: var(--serif);
+		font-weight: 900;
+		text-transform: uppercase;
+		font-size: clamp(3rem, 12vw, 4.2rem);
+		line-height: 0.82;
+		letter-spacing: 0.01em;
 		margin: 0 0 1rem;
 	}
-	section > p,
-	.what p,
-	.hardware p {
+	.title span {
+		display: block;
+	}
+	.tagline {
+		font-family: var(--serif);
+		font-weight: 600;
+		font-size: 1.2rem;
+		line-height: 1.2;
+		letter-spacing: 0.02em;
+		margin: 0 0 0.8rem;
+		max-width: 22ch;
+	}
+	.info {
+		font-size: 0.92rem;
+		margin: 0 0 1rem;
+	}
+	.gh {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.6rem;
+		font-weight: 500;
+		font-size: 0.92rem;
+		text-decoration: none;
+	}
+	.gh-mark {
+		display: grid;
+		place-items: center;
+		width: 2.6rem;
+		height: 2.6rem;
+		border-radius: 50%;
+		background: var(--button);
+	}
+
+	.tabs {
+		position: sticky;
+		top: 0;
+		z-index: 5;
+		background: var(--sidebar);
+		overflow-x: auto;
+		scrollbar-width: none;
+	}
+	.tabs ul {
+		list-style: none;
+		display: flex;
+		gap: 3px;
+		margin: 0;
+		padding: 0 16px 6px;
+	}
+	.tabs a {
+		display: block;
+		white-space: nowrap;
+		background: var(--tab);
+		color: var(--ink);
+		padding: 0.5rem 0.8rem;
+		font-size: 0.78rem;
+		font-weight: 500;
+		letter-spacing: 0.07em;
+		text-transform: uppercase;
+		text-decoration: none;
+	}
+	.tabs a:hover,
+	.tabs a:focus-visible {
+		background: var(--accent);
+		color: var(--accent-ink);
+	}
+
+	@media (min-width: 64rem) {
+		.layout {
+			grid-template-columns: minmax(17rem, 24vw) 2.25rem minmax(0, 1fr);
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			height: 100vh;
+			padding: 4rem 1.75rem 2rem 1.5rem;
+			text-align: right;
+		}
+		.sidebar-inner {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-end;
+			height: 100%;
+		}
+		.title {
+			text-align: center;
+			font-size: clamp(2.5rem, 3.7vw, 4.6rem);
+			margin-bottom: 1.6rem;
+		}
+		.tagline {
+			font-size: clamp(1.15rem, 1.5vw, 1.4rem);
+		}
+		.gh {
+			margin-top: auto;
+			flex-direction: column;
+			align-self: center;
+			text-align: center;
+		}
+		.tabs {
+			overflow: visible;
+		}
+		.tabs ul {
+			position: sticky;
+			top: 0;
+			flex-direction: column;
+			padding: 0;
+		}
+		.tabs a {
+			writing-mode: vertical-rl;
+			transform: rotate(180deg);
+			padding: 0.9rem 0.5rem;
+		}
+	}
+
+	.content {
+		padding: 2.5rem 16px 0;
+		max-width: 64rem;
+	}
+	@media (min-width: 64rem) {
+		.content {
+			padding: 4.5rem clamp(2rem, 6vw, 6rem) 0;
+		}
+	}
+
+	section {
+		margin-block: 0 4.5rem;
+	}
+	h2 {
+		font-size: clamp(1.9rem, 3vw, 2.4rem);
+		letter-spacing: 0.02em;
+		margin: 0 0 1.4rem;
+		scroll-margin-top: 4rem;
+	}
+	section > p {
 		max-width: var(--measure);
 	}
 
 	.hero {
-		padding-top: 2.5rem;
-	}
-	.brand {
-		font-weight: 700;
-		letter-spacing: 0.02em;
-		color: var(--accent);
-		margin: 0 0 1.5rem;
+		scroll-margin-top: 4rem;
 	}
 	.hero h1 {
-		font-size: clamp(2rem, 5.5vw, 3.6rem);
-		max-width: 20ch;
-		margin: 0 0 1rem;
+		font-size: clamp(2rem, 4.6vw, 3.3rem);
+		max-width: 22ch;
+		margin: 0 0 1.2rem;
+	}
+	.hero h1 em {
+		color: var(--accent);
 	}
 	.lede {
-		font-size: 1.2rem;
-		color: var(--muted);
+		font-size: 1.15rem;
 		max-width: 52ch;
-		margin: 0 0 1.5rem;
+		margin: 0 0 1.6rem;
+		padding-left: 1.2rem;
+	}
+	.lede li::marker {
+		color: var(--accent);
 	}
 	.button {
-		display: inline-block;
-		background: var(--accent);
-		color: var(--accent-ink);
-		padding: 0.7rem 1.2rem;
-		border-radius: 8px;
-		font-weight: 600;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.55rem;
+		background: var(--button);
+		color: #ffffff;
+		padding: 0.7rem 1.25rem;
+		border-radius: 999px;
+		font-weight: 500;
 		text-decoration: none;
 	}
-	.hero-image,
-	.wide {
-		margin: 2.5rem auto 0;
-		max-width: 96rem;
+	.button:hover {
+		color: #ffffff;
+		filter: brightness(1.06);
+	}
+	figure {
+		margin: 2rem 0 0;
+	}
+	figure img {
+		border-radius: 10px;
 	}
 	figcaption {
 		color: var(--muted);
 		font-size: 0.85rem;
-		padding: 0.5rem 16px 0;
-		text-align: center;
+		padding-top: 0.5rem;
 	}
-
 	.parts-wrap {
 		margin-top: 1.5rem;
 		border: 1px solid var(--line);
@@ -418,13 +594,8 @@ const repos = [
 			grid-template-columns: repeat(2, 1fr);
 		}
 	}
-	@media (min-width: 68rem) {
-		.pillars {
-			grid-template-columns: repeat(4, 1fr);
-		}
-	}
 	.pillars li {
-		background: var(--bg-raised);
+		background: var(--raised);
 		border: 1px solid var(--line);
 		border-radius: 12px;
 		padding: 1.4rem;
@@ -435,10 +606,10 @@ const repos = [
 		letter-spacing: 0.08em;
 		color: var(--accent);
 		margin: 0 0 0.6rem;
-		font-weight: 600;
+		font-weight: 500;
 	}
 	.pillars h3 {
-		font-size: 1.3rem;
+		font-size: 1.35rem;
 		margin: 0 0 0.7rem;
 	}
 	.pillars li p:last-child {
@@ -453,15 +624,8 @@ const repos = [
 	.further li {
 		margin-bottom: 0.8rem;
 	}
-
-	.box {
-		border-left: 3px solid var(--accent);
-		padding-left: 1.2rem;
-	}
-	.date {
-		color: var(--muted);
-		margin: -0.6rem 0 0.6rem;
-		font-size: 0.9rem;
+	.further li::marker {
+		color: var(--accent);
 	}
 
 	.repos {
@@ -469,7 +633,6 @@ const repos = [
 		padding: 0;
 		margin: 0;
 		display: grid;
-		gap: 0.2rem;
 	}
 	.repos li {
 		display: grid;
@@ -479,7 +642,7 @@ const repos = [
 		border-bottom: 1px solid var(--line);
 	}
 	.repos a {
-		font-weight: 600;
+		font-weight: 500;
 	}
 	.repos span {
 		color: var(--muted);
@@ -494,8 +657,7 @@ const repos = [
 	footer {
 		color: var(--muted);
 		font-size: 0.9rem;
-		padding-top: 1rem;
-		padding-bottom: 3rem;
+		padding: 1rem 0 3rem;
 		border-top: 1px solid var(--line);
 	}
 </style>
