@@ -17,3 +17,9 @@ pnpm's version comes from `packageManager`, Node's from `.node-version`.
 
 `public/renders/` are JPEG copies of `pedal.project/enclosure/renders/console_*.png` from
 pedal.project `aa001b8`. Re-export them from there when the model changes; never edit them here.
+
+Type: the sidebar's title is Piazzolla 900 (Fontsource, `@fontsource/piazzolla`); everything else is
+Lexica Ultralegible, whose four WOFF2 files and OFL licence are in
+`public/fonts/lexica-ultralegible/`, copied from
+[jacobxperez/lexica-ultralegible](https://github.com/jacobxperez/lexica-ultralegible) `fonts/web/`
+at `198700e`. It has Regular and Bold only, so the CSS uses weights 400 and 700.

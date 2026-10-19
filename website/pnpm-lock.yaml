@@ -169,9 +169,6 @@ importers:
       '@fontsource/piazzolla':
         specifier: 5.3.0
         version: 5.3.0
-      '@fontsource/roboto':
-        specifier: 5.3.0
-        version: 5.3.0
       astro:
         specifier: 7.3.6
         version: 7.3.6(yaml@2.9.1)
@@ -724,9 +721,6 @@ packages:
 
   '@fontsource/piazzolla@5.3.0':
     resolution: {integrity: sha512-TdNHvrECFtU5g3hYGDraUHBHwRlR60EGpBlf80IGpu0/puUrWTH79xeiNqPwxKcuC6pWKYFRD2mLXHoMB9BJkw==}
-
-  '@fontsource/roboto@5.3.0':
-    resolution: {integrity: sha512-BapRJOWYP+LZ21zp+wBQjfpPYKRoxc4LspJ/RLuI+HSMBD5u/X4O+ESDrSvEqDSy0rAl7GwBJ+09mdc16cVQ1Q==}
 
   '@img/colour@1.1.0':
     resolution: {integrity: sha512-Td76q7j57o/tLVdgS746cYARfSyxk8iEfRxewL9h4OMzYhbW4TAcppl0mT4eyqXddh6L/jwoM75mo7ixa/pCeQ==}
@@ -2385,8 +2379,6 @@ snapshots:
     optional: true
 
   '@fontsource/piazzolla@5.3.0': {}
-
-  '@fontsource/roboto@5.3.0': {}
 
   '@img/colour@1.1.0': {}
 

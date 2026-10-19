@@ -1,9 +1,7 @@
 ---
-import '@fontsource/piazzolla/latin-600.css';
+// Piazzolla is only the sidebar's title; everything else is Lexica Ultralegible
+// (public/fonts/lexica-ultralegible/, SIL OFL 1.1).
 import '@fontsource/piazzolla/latin-900.css';
-import '@fontsource/roboto/latin-400.css';
-import '@fontsource/roboto/latin-500.css';
-import '@fontsource/roboto/latin-700.css';
 
 interface Props {
 	title: string;
@@ -49,7 +47,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 		--tab: #ffffff;
 		--measure: 68ch;
 		--serif: 'Piazzolla', Georgia, serif;
-		--sans: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+		--sans: 'Lexica Ultralegible', system-ui, -apple-system, 'Segoe UI', sans-serif;
 		color-scheme: light;
 	}
 	@media (prefers-color-scheme: dark) {
@@ -67,6 +65,34 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 			--tab: #121519;
 			color-scheme: dark;
 		}
+	}
+	@font-face {
+		font-family: 'Lexica Ultralegible';
+		src: url('/fonts/lexica-ultralegible/LexicaUltralegible-Regular.woff2') format('woff2');
+		font-weight: 400;
+		font-style: normal;
+		font-display: swap;
+	}
+	@font-face {
+		font-family: 'Lexica Ultralegible';
+		src: url('/fonts/lexica-ultralegible/LexicaUltralegible-Italic.woff2') format('woff2');
+		font-weight: 400;
+		font-style: italic;
+		font-display: swap;
+	}
+	@font-face {
+		font-family: 'Lexica Ultralegible';
+		src: url('/fonts/lexica-ultralegible/LexicaUltralegible-Bold.woff2') format('woff2');
+		font-weight: 700;
+		font-style: normal;
+		font-display: swap;
+	}
+	@font-face {
+		font-family: 'Lexica Ultralegible';
+		src: url('/fonts/lexica-ultralegible/LexicaUltralegible-BoldItalic.woff2') format('woff2');
+		font-weight: 700;
+		font-style: italic;
+		font-display: swap;
 	}
 	*,
 	*::before,
@@ -106,8 +132,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 	h1,
 	h2,
 	h3 {
-		font-family: var(--serif);
-		font-weight: 600;
+		font-family: var(--sans);
+		font-weight: 700;
 		line-height: 1.15;
 		color: var(--ink);
 	}
