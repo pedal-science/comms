@@ -5,27 +5,10 @@ import Base from '../layouts/Base.astro';
 
 const gh = (repo: string) => `https://github.com/pedal-science/${repo}`;
 
-const pillars = [
-	{
-		kicker: 'More models',
-		headline: '8 full-quality NAM models in use all at once on a Pi 5',
-		body: 'Hand optimised code makes NAM’s A2 models 2× faster (A2 Full) and 3× faster (A2 Lite) on a Pi 5’s processor. Both are contributed back to the NAM project.',
-	},
-	{
-		kicker: 'Seamless',
-		headline: 'Extremely low latency switching, even of a fully loaded rig',
-		body: 'No audible switching artefacts, no dropouts.',
-	},
-	{
-		kicker: 'Excellent audio',
-		headline: 'Excellent audio quality',
-		body: 'A clean signal path from the input jack to the outputs.',
-	},
-	{
-		kicker: 'Yours',
-		headline: 'Open designs, standard parts',
-    body: 'A Pi 5, a Pico 2, a codec board and some analogue boards you can make.'
-	},
+const features = [
+  '8 NAM A2 Full simultaneously on a Pi 5',
+  'Extremely low latency switching, no glitches',
+  'Open designs, standard parts'
 ];
 
 // The hardware table. A component with more than one example lists each as its own option, shown
@@ -72,7 +55,7 @@ const parts = [
 
 const sections = [
 	{ id: 'overview', label: 'Overview' },
-	{ id: 'pillars', label: 'What it does' },
+	{ id: 'features', label: 'Features' },
 	{ id: 'further', label: 'Further' },
 	{ id: 'hardware', label: 'Hardware' },
 	{ id: 'where', label: 'Where to go' },
@@ -119,11 +102,11 @@ const repos = [
 		<div class="content">
 			<main>
 				<section id="overview" class="hero" aria-label="Overview">
-					<h1>An effects unit <em>you</em> can build. Open source code and designs.</h1>
+					<h1>An effects unit <em>you</em> can build.</h1>
 					<ul class="lede">
 						<li>For guitar, bass and vocals</li>
 						<li>Optimised Neural Amp Models (NAM) and IRs</li>
-						<li>with capabilities that rival — and in places surpass — commercial units</li>
+            <li>Open source code and designs</li>
 					</ul>
 					<p class="actions">
 						<a class="button" href="https://github.com/pedal-science/">
@@ -141,30 +124,10 @@ const repos = [
 					</figure>
 				</section>
 
-				<section aria-labelledby="pillars">
-					<h2 id="pillars">What it does</h2>
-					<ul class="pillars">
-						{pillars.map((p) => (
-							<li>
-								<p class="kicker">{p.kicker}</p>
-								<h3>{p.headline}</h3>
-								<p>{p.body}</p>
-							</li>
-						))}
-					</ul>
-				</section>
-
-				<section class="further" aria-labelledby="further">
-					<h2 id="further">Further than what’s on the market</h2>
-					<ul>
-						<li>
-							<strong>More NAM and IR per rig than any product on the market supports today.</strong>
-							The optimisations are public, so others can catch up — but their code and designs aren’t
-							open, and these are.
-						</li>
-						<li>
-							<strong>Low-latency switching at that load, without dropouts or audible artefacts.</strong>
-						</li>
+				<section aria-labelledby="features">
+					<h2 id="features">Features</h2>
+					<ul class="features">
+						{features.map((f) => ( <li>{f}</li>))}
 					</ul>
 				</section>
 
@@ -208,12 +171,11 @@ const repos = [
 							loading="lazy"
 							alt="Exploded design render: the console cover with footswitches and controls, the touchscreen, the Raspberry Pi 5, Pico 2, codec, input board and output boards, above the case base."
 						/>
-						<figcaption>Design render, exploded. The panel layout is provisional, not for drilling.</figcaption>
 					</figure>
 				</section>
 
 				<section aria-labelledby="where">
-					<h2 id="where">Where to go</h2>
+					<h2 id="where">Sources</h2>
 					<ul class="repos">
 						{repos.map((r) => (
 							<li>
@@ -222,15 +184,6 @@ const repos = [
 							</li>
 						))}
 					</ul>
-				</section>
-
-				<section class="credits" aria-labelledby="credits">
-					<h2 id="credits">Credits</h2>
-					<p>
-						Built on <a href="https://www.neuralampmodeler.com/">Neural Amp Modeler</a>, by Steven Atkinson
-						and its community, and on the captures and IRs of the people who publish them. It also stands
-						on Linux and PREEMPT_RT, Qt, and the Raspberry Pi’s open documentation.
-					</p>
 				</section>
 			</main>
 
@@ -580,7 +533,7 @@ const repos = [
 		}
 	}
 
-	.pillars {
+	.features {
 		list-style: none;
 		padding: 0;
 		margin: 0;
@@ -589,11 +542,11 @@ const repos = [
 		grid-template-columns: 1fr;
 	}
 	@media (min-width: 40rem) {
-		.pillars {
+		.features {
 			grid-template-columns: repeat(2, 1fr);
 		}
 	}
-	.pillars li {
+	.features li {
 		background: var(--raised);
 		border: 4px solid var(--line);
 		border-radius: 12px;
@@ -607,11 +560,11 @@ const repos = [
 		margin: 0 0 0.6rem;
 		font-weight: 700;
 	}
-	.pillars h3 {
+	.features h3 {
 		font-size: 1.35rem;
 		margin: 0 0 0.7rem;
 	}
-	.pillars li p:last-child {
+	.features li p:last-child {
 		margin: 0;
 		color: var(--muted);
 	}
