@@ -40,18 +40,22 @@ const repos = [
 ---
 <Base
 	title="pedal.science"
-	description="An open-source, open-design effects unit for guitar, bass and vocals: neural amp models, IRs and seamless rig switching on a Raspberry Pi 5."
+	description="An open-source, open-design effects unit for guitar, bass and vocals: neural amp models, IRs and seamless rig switching on a Raspberry Pi."
 >
 	<header class="hero">
 		<div class="wrap">
 			<p class="brand">pedal.science</p>
-			<h1>An effects unit you can build. Open from the code to the circuit boards.</h1>
-			<p class="lede">
-				For guitar, bass and vocals. Neural amp models (NAM) and IRs, with capabilities that rival
-				— and in places surpass — commercial units.
-			</p>
+      <h1>An effects unit <em>you</em> can build. Open source code and designs.</h1>
+			<ul class="lede">
+        <li>For guitar, bass and vocals</li>
+        <li>Optimised Neural Amp Models (NAM) and IRs</li>
+        <li>with capabilities that rival — and in places surpass — commercial units</li>
+      </ul>
 			<p class="actions">
-				<a class="button" href={gh('pedal.project')}>See the designs</a>
+				<a class="button" href="https://github.com/pedal-science/">
+          <img src="icons/github-white.svg"/>
+          Code and designs
+        </a>
 			</p>
 		</div>
 		<figure class="hero-image">
@@ -59,23 +63,12 @@ const repos = [
 				src="/renders/console_1_hero.jpg"
 				width="1920"
 				height="1080"
-				alt="Design render of the pedal: a black sloped console with a wide touchscreen above a row of six footswitches."
+				alt="Design render of the pedal: a black sloped console with a wide touchscreen above a row of five footswitches."
 			/>
-			<figcaption>Design render. The panel layout is provisional.</figcaption>
 		</figure>
 	</header>
 
 	<main>
-		<section class="wrap what">
-			<h2>What it is</h2>
-			<p>
-				A Raspberry Pi 5 runs neural captures of real amps and cabinets. You design your rig on a
-				phone, tablet or Mac, or on the pedal’s own touchscreen. Everything — the software, the
-				schematics, the board layouts, the enclosure and the measurements — is published, so anyone
-				can build one or change it.
-			</p>
-		</section>
-
 		<section class="wrap" aria-labelledby="pillars">
 			<h2 id="pillars">What it does</h2>
 			<ul class="pillars">
@@ -105,15 +98,48 @@ const repos = [
 
 		<section class="hardware" aria-labelledby="hardware">
 			<div class="wrap">
-				<h2 id="hardware">The hardware</h2>
-				<p>
-					A Hammond sloped console holds an 8.8″ touchscreen, six footswitches and the controls. Inside:
-					a Raspberry Pi 5 for the audio and the screen, a Pico 2 for the footswitches, MIDI and
-					controls, a WM8960 codec, and through-hole input and output boards. The schematics are
-					generated from wiring tables and checked against KiCad’s netlist; the board layouts are data,
-					checked against the same netlist.
-				</p>
-			</div>
+				<h2 id="hardware">Hardware</h2>
+        <table>
+          <tr>
+            <th>Component</th>
+            <th>Description</th>
+            <th>Example</th>
+            <th>GBP (approx)</th>
+          </tr>
+          <tr>
+            <td>Core</td>
+            <td>The processing unit. Its job is to do the effects processing.
+              It doesn't need much RAM, but it does need a little processing power.</td>
+            <td>Raspberry Pi 5 with 1GB RAM</td>
+            <td>40</td>
+          </tr>
+          <tr>
+            <td>Codec</td>
+            <td>The bridge between digital and analogue audio.
+              It needs to support at least one input and one output, 24bit 48kHz.</td>
+            <td>A WM8960-based breakout board</td>
+            <td>5</td>
+          </tr>
+          <tr>
+            <td>Analogue input and output</td>
+            <td>Sockets, wires, basic circuits</td>
+            <td>Various small parts</td>
+            <td>40</td>
+          </tr>
+          <tr>
+            <td>Control</td>
+            <td>The interface with hardware controls, plus some buttons, dials, switches.</td>
+            <td>Raspberry Pi Pico and your choice of controls</td>
+            <td>10</td>
+          </tr>
+          <tr>
+            <td>Screen (optional)</td>
+            <td>Touchscreen for direct control (or you can use the app), or something more basic if you don't want to edit on the pedal itself.</td>
+            <td>8.8" wide touchscreen / 2.4" LCD</td>
+            <td>55 / 8</td>
+          </tr>
+        </table>
+      </div>
 			<figure class="wide">
 				<img
 					src="/renders/console_2_exploded.jpg"
@@ -124,17 +150,6 @@ const repos = [
 				/>
 				<figcaption>Design render, exploded. The panel layout is provisional, not for drilling.</figcaption>
 			</figure>
-		</section>
-
-		<section class="wrap status" aria-labelledby="status">
-			<div class="box">
-				<h2 id="status">Where it stands</h2>
-				<p class="date">19 October 2026</p>
-				<p>
-					It plays: heavy rigs, edited live and switched, on the pedal’s own hardware. Next come the
-					case, the screen and the footswitches.
-				</p>
-			</div>
 		</section>
 
 		<section class="wrap" aria-labelledby="where">
@@ -152,15 +167,16 @@ const repos = [
 		<section class="wrap credits" aria-labelledby="credits">
 			<h2 id="credits">Credits</h2>
 			<p>
-				Built on <a href="https://www.neuralampmodeler.com/">Neural Amp Modeler</a>, by Steven Atkinson
-				and its community, and on the captures and IRs of the people who publish them. It also stands on
-				Linux and PREEMPT_RT, Qt, and the Raspberry Pi’s open documentation.
+        Built on <a href="https://www.neuralampmodeler.com/">Neural Amp
+          Modeler</a>, by Steven Atkinson and its community, and on the
+        captures and IRs of the people who publish them. It also stands on
+        Linux and PREEMPT_RT, Qt, and the Raspberry Pi’s open documentation.
 			</p>
 		</section>
 	</main>
 
 	<footer class="wrap">
-		<p>pedal.science is a project, not a product: nothing here is for sale.</p>
+		<p>pedal.science is a project, not a product. Bothing here is for sale.</p>
 	</footer>
 </Base>
 
