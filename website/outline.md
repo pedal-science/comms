@@ -1,9 +1,9 @@
 # The website: outline
 
-The site will eventually describe the whole pedal project. **Version 1 is one page: the overview.**
-Everything else on the map below is listed so v1 leaves room for it, not built. What the site says
-is [../docs/message.md](../docs/message.md); every number on it is in
-[../docs/claims.md](../docs/claims.md).
+**pedal.science**, at `pedal.science`. The site will eventually describe the whole project.
+**Version 1 is one page: the overview.** Everything else on the map is listed so v1 leaves room for
+it, not built. What the site says is [../docs/message.md](../docs/message.md); every claim on it is
+in [../docs/claims.md](../docs/claims.md).
 
 ## The map
 
@@ -11,107 +11,112 @@ is [../docs/message.md](../docs/message.md); every number on it is in
 |---|---|---|---|
 | **Overview** (`/`) | **yes** | everyone | Below, in detail |
 | Hear it | later | players | Rigs played through the pedal: DI and output side by side, switches left unedited |
-| NAM, faster | later | developers, NAM community | The planar NEON kernels: what changed, the benchmarks, how to reproduce them, the upstream PR |
-| Switching | later | players, developers | How a whole-rig change stays silent: ramps, dual-render crossfades, warm rigs, the Lite stand-in |
-| Audio quality | later | builders | The measurement method, every noise and distortion run, the hum investigation, published as it was |
-| Build one | later | builders | Parts, boards, schematics, the case, the card image, step by step |
+| NAM and IR, faster | later | developers, NAM community | The NEON kernels and the IR convolver: what changed, the Pi 5 benchmarks, how to reproduce them, the upstream contributions |
+| Switching | later | players, developers | How a whole-rig change stays silent: ramps, dual-render crossfades, warm rigs |
+| Audio quality | later | builders | The measurement method and every run, published as it was |
+| Build one | later | builders | Parts, boards, schematics, the enclosure and its 3D model, the card image, step by step |
 | The software | later | developers | namchain, ljoss, rigpa, rtpi, `pedald`: what each is, its repo, how they talk |
-| Status | later | everyone | What works, what is open, from `pedal.project/plan.md` |
+| Status | later | everyone | What works and what is next, from `pedal.project/plan.md` |
 | The video | when made | everyone | Embedded on the overview too |
 
 ## The overview page, section by section
 
-Each section: what it says, what's on screen, and the claims it uses.
-
 ### 1. Hero
 
 - **Headline (draft):** "An effects unit you can build. Open from the code to the circuit boards."
-- **Sub-line:** guitar, bass and vocals; neural amp models (NAM) and IRs; capabilities that rival
-  units costing several times as much.
-- **Visual:** the video's opening ten seconds as a muted loop, or a still of the pedal being played,
-  until the video exists. Play button opens the video.
+- **Sub-line:** guitar, bass and vocals; neural amp models (NAM) and IRs; capabilities that rival —
+  and in places surpass — commercial units.
+- **Visual:** a render of the 3D model — the Hammond sloped console with the 8.8″ screen showing
+  rigpa — slowly turning, until the video exists; then the video's opening as a muted loop. Play
+  button opens the video.
 - **Calls to action:** *Watch the video* · *See the designs* (GitHub).
 
 ### 2. What it is, in three sentences
 
-Plain words for a player who has never heard of NAM: a Raspberry Pi runs neural captures of real
-amps and cabinets; you design your rig on a phone, tablet or Mac, or on the pedal's own screen;
-everything — software, schematics, board layouts, measurements — is published so anyone can build
-or change it.
+For a player who has never heard of NAM: a Raspberry Pi 5 runs neural captures of real amps and
+cabinets; you design your rig on a phone, tablet or Mac, or on the pedal's own touchscreen;
+everything — software, schematics, board layouts, the enclosure, measurements — is published so
+anyone can build or change it.
 
 ### 3. The four pillars
 
-Four cards, each with a headline number, one sentence, and a "how" link to its later page (inert in
-v1, or pointing at the repo doc until the page exists).
+Four cards, each a headline, one sentence, and a "how" link to its later page (pointing at the repo
+doc until the page exists).
 
 | Card | Headline | Sentence | Claims |
 |---|---|---|---|
-| More models | **9** full-quality NAM models on one core | Hand-written NEON kernels make NAM's A2 models 2–3× faster on the Pi 5, contributed upstream | C1–C4 |
-| Seamless | **0** dropouts in an hour of playing and switching | Edits are ramped; rig changes render both rigs and crossfade, so you never hear the join | C7, C8, C10 |
-| Clean | **+1.5 dB(A)** over the converter's own floor | The input stage, with a guitar plugged in, adds almost nothing; every measurement is published | C11, C12 |
-| Yours | **Open** designs, standard parts | Pi 5, Pico 2, a codec board, through-hole analogue boards: build one, repair one, build them for others | C16, C18, C19 |
+| More models | **9** full-quality NAM models on one core of a Raspberry Pi 5 | Hand-written NEON kernels make NAM's A2 models 2–3× faster on the Pi 5, and long IRs a fraction of the cost — contributed back to NAM | C1–C5 |
+| Seamless | **Extremely low latency switching**, even of a fully loaded rig | No audible switching artefacts, no dropouts | C6, C7 |
+| Excellent audio | **Excellent audio quality** | A clean signal path, with every measurement published | C8 |
+| Yours | **Open** designs, standard parts | Pi 5, Pico 2, a codec board, analogue boards you can solder: build one for yourself, or for others | C9–C11 |
 
-Latency (C6, about 4 ms jack to jack) sits under the Seamless card as a second line, once
-re-measured.
+### 4. Further than what's on the market
 
-### 4. Hear the switch
+Two short statements, from [../docs/message.md](../docs/message.md):
 
-A short audio player (or the relevant clip of the video): one take, two rigs as different as
-possible, switched mid-phrase, with the waveform drawn under it so the eye can find the switch and
-the ear can't. Caption: the take is unedited, recorded at the pedal's output. The single most
-persuasive thing on the page, so it goes high.
+- More NAM and IR per rig than any product on the market supports today. The optimisations are
+  public, so others can catch up — but their code and designs aren't open, and these are.
+- Low-latency switching at that load, without dropouts or audible artefacts.
 
-### 5. How it fits together
+No comparison table on v1; the "Switching" and "NAM and IR" pages carry the comparisons when
+[../docs/claims.md](../docs/claims.md) section 5 has them.
 
-One diagram: guitar → input board → codec → Pi 5 (engine on isolated real-time cores; the pedal
-service; the touchscreen UI) → codec → outputs; the Pico 2 with footswitches, MIDI and controls,
-over UART; ljoss on an iPad over Wi-Fi. Exported from `pedal.project/docs/diagrams/`, not redrawn
-here, with a simplified "public" layer if the engineering diagram is too dense.
+### 5. Hear the switch
 
-### 6. Honest status
+A short audio player (or the clip from the video): one take, two rigs as different as possible,
+switched mid-phrase with a stomp, with the waveform drawn under it so the eye can find the switch
+and the ear can't. Caption: unedited, recorded at the pedal's output. Added when the stomp scenes are
+shot (after the footswitches work); until then the section is left out, not faked.
 
-A short, dated box: what plays today (the pedal plays heavy rigs, edited live and switched, C10)
-and what is not done (the screen, the footswitch hardware, the case layout, the open items in the
-claims register). Builders trust this more than polish.
+### 6. The hardware
 
-### 7. Where to go
+The 3D model, exploded: the enclosure, the screen, the Pi 5, the Pico 2, the codec, the input and
+output boards, the footswitches. Each part labelled with what it does. Beside it, one system diagram:
+guitar → input board → codec → Pi 5 (the engine on isolated real-time cores, the pedal service, the
+touchscreen UI) → codec → outputs; the Pico with footswitches, MIDI and controls over UART; ljoss on
+an iPad over Wi-Fi. The diagram is exported from `pedal.project/docs/diagrams/`, not redrawn; the
+renders come from `pedal.project/enclosure/` (claim C12).
 
-Links to the repositories with one line each, the licence(s), and how to follow the project.
+### 7. Status
 
-### 8. Credits
+A short, dated box: what plays today (heavy rigs, edited live and switched) and what is next (the
+case, the screen, the footswitches).
 
-NAM and its author and community; capture and IR authors heard on the page; the parts of the
-project that stand on other open work (Linux PREEMPT_RT, Qt, the Raspberry Pi firmware).
+### 8. Where to go
+
+The repositories with one line each, the licences, and how to follow the project.
+
+### 9. Credits
+
+NAM, Steven Atkinson and its community; the authors of the captures and IRs heard; the open work the
+project stands on (Linux PREEMPT_RT, Qt, the Raspberry Pi firmware).
 
 ## Design
 
-- One column, readable on a phone first; dark by default (stage and studio light), light mode
-  equal.
-- Numbers set large in the cards; no stock photography — the pedal, the boards, the screen, hands
-  playing.
-- Diagrams as SVG so they stay sharp and searchable.
+- One column, phone first; dark by default, light mode equal.
+- The 3D model carries the visuals: renders, not stock photography, until the real case is built;
+  then photos of the real thing beside the renders.
+- Diagrams as SVG.
 
-## How it is built and hosted (recommendation)
+## How it is built and hosted
 
-A static site, so it can be hosted for nothing and anyone can rebuild it: **Astro**, written in
-Markdown with a few components (the pillar cards, the audio player with a waveform), built with
-pnpm, published to **GitHub Pages** from this repo. No JavaScript is needed except the audio
-player. The source goes in `website/` beside this outline.
+A static site, so anyone can rebuild it: **Astro**, written in Markdown with a few components (the
+pillar cards, the audio player with a waveform, a 3D viewer or turntable render), built with pnpm,
+published to **GitHub Pages** with the custom domain `pedal.science`. The source goes in `website/`.
 
-## Open decisions (the owner's)
+A live 3D viewer (e.g. `<model-viewer>` with a glTF export of the model) is worth it in the hardware
+section; the hero uses a pre-rendered loop, which loads faster.
 
-1. **The name.** "pedal" is the working name; the site needs a public one and a domain.
-2. **Licences.** The software and the hardware designs each need one stated on the site (e.g. an
-   OSI licence for the code, CERN-OHL for the hardware). Check what each repo carries today.
-3. **Are the repositories public?** The site links to them; the ones that are private need opening
-   or the links held back.
-4. **Hosting and domain**: GitHub Pages under the owner's account, or a domain of its own.
-5. **Comparisons on v1, or later?** Recommended later, on its own page, once section 5 of the claims
-   register has cited figures.
+## Decided (2026-10-19)
 
-## Before v1 goes up
+- Name and domain: **pedal.science**.
+- All the repositories will be public; the site links to them.
+- Publishing does not wait on re-measurement or comparisons.
+- The 3D model of the new enclosure and screen is used on the site.
 
-- Re-measure C6 (latency) and repeat C11 (noise with a guitar) on the current pedal.
-- Record the "hear the switch" take (shared with the video's shoot).
-- Get permission, and credit, for every capture and IR heard.
-- Read every row the page uses in `docs/claims.md` against its source again.
+## Still open
+
+1. **Licences** for the software and the hardware designs (e.g. an OSI licence for code, CERN-OHL
+   for hardware). Check what each repo carries today; the site states them.
+2. **The 3D model** has to be made: the existing one is the old 1590DD layout, and the new panel
+   layout is not designed (claim C12).
