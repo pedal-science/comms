@@ -101,8 +101,21 @@ project stands on (Linux PREEMPT_RT, Qt, the Raspberry Pi firmware).
 ## How it is built and hosted
 
 A static site, so anyone can rebuild it: **Astro**, written in Markdown with a few components (the
-pillar cards, the audio player with a waveform, a 3D viewer or turntable render), built with pnpm,
-published to **GitHub Pages** with the custom domain `pedal.science`. The source goes in `website/`.
+pillar cards, the audio player with a waveform, a 3D viewer or turntable render), built with pnpm.
+The source goes in `website/`.
+
+**Hosted on Cloudflare as a Worker with static assets**, deployed by Workers Builds from this repo
+on GitHub (the dashboard's "Create an app" flow, not legacy Pages — Cloudflare recommends Workers
+for new projects and puts new features there):
+
+- **Root directory** `website/`, where `wrangler.jsonc` lives with `assets.directory` pointing at
+  Astro's `./dist`. No Worker script for a static site; add a `main` script later if something
+  dynamic is needed, in the same project.
+- **Build watch paths** `website/**`, so commits to the outlines and docs don't redeploy the site.
+- **Preview builds** on: each branch gets its own preview URL.
+- **Custom domain** `pedal.science` attached to the Worker.
+- **Video and large media are not static assets** (25 MiB per file): the video goes on Cloudflare
+  Stream or a video platform, and big renders or audio in R2 if needed.
 
 A live 3D viewer (e.g. `<model-viewer>` with a glTF export of the model) is worth it in the hardware
 section; the hero uses a pre-rendered loop, which loads faster.
