@@ -59,21 +59,25 @@ for _ in $(seq 1 600); do
     cp "$png" "$OUT/ljoss/$name.png"
     # rigpa shows what the engine has, and ljoss's edit takes a moment to get there.
     printf '  %s: engine %s\n' "$name" "$(python3 "$HERE/tools/engine.py" settle "$DEV" "$OUT/state.json" --save-as "$DEV/library/rigs")"
-    sleep 2   # past the moment a new model is brought up, when DSP reads high for a beat
+    sleep 8   # past the moment a new model is brought up, when DSP reads high for a beat
     rigpa_snap "$name"
+    # The DSP figure reads high for a while after a model comes up, and red on rigpa's screen: snap
+    # again until it has settled, so the picture shows the rig's load and not the moment of a change.
+    for _ in 1 2 3 4 5; do
+      "$HERE/work/venv/bin/python" - "$OUT/rigpa/$name.png" <<'PY' && break
+import sys
+# Is the DSP readout (at 1680-1740 x 105-125 on rigpa's 1920 x 480 screen) drawn in red?
+from PIL import Image
+im = Image.open(sys.argv[1]).convert("RGB").crop((1680, 105, 1740, 125))
+red = sum(1 for r, g, b in im.get_flattened_data() if r > 150 and g < 120)
+sys.exit(1 if red > 8 else 0)
+PY
+      sleep 4
+      rigpa_snap "$name"
+    done
     printf '  %s: ljoss and rigpa\n' "$name"
   done
   [[ ${#seen[@]} -ge $(wc -w <<<"$expected") ]] && break
   sleep 0.25
-done
-# The rig list, for the cuts between rigs: rigpa with each of the library's rigs loaded in turn,
-# ending back on the video's own rig.
-mkdir -p "$OUT/rigs"
-for rig in Clean Lead Dual Flow Sludge; do
-  python3 "$HERE/tools/engine.py" load "$DEV" "$rig.json" >/dev/null
-  python3 "$HERE/tools/engine.py" settle "$DEV" "$OUT/state.json" >/dev/null
-  sleep 2
-  rigpa_snap "../rigs/$rig"
-  printf '  rig %s\n' "$rig"
 done
 printf 'done: %s\n' "$OUT"

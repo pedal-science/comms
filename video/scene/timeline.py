@@ -1,50 +1,44 @@
 """The teaser's edit, in frames: one place for the shots, the presses, what each screen shows and
-the captions. The scene build (build_scene.py), the screen plates (make_plates.py) and the finish
+the words. The scene build (build_scene.py), the screen plates (make_plates.py) and the finish
 (finish.py) all read it, so a cut moved here moves everywhere.
 
-24 fps, 30 s, 720 frames. Cuts sit on a 120 BPM grid — a beat is 12 frames, a bar 48 — so a
-soundtrack at 120 (or 60, or 240) BPM drops onto it with the cuts on the beat.
+24 fps, 30 s, 720 frames, cut to the owner's own playing: 4/4 at 120 BPM, a beat every 12 frames,
+and the video starts on beat 2 of a bar. So the first three beats are a pickup, the music's
+downbeats fall on frames 36, 84, 132 ... 708 (DOWNBEATS), and the last three beats, 684 on, fade out.
+Every cut and every word starts on a downbeat; presses, toggles and strobe hits fall on beats.
 """
 
 FPS = 24
 FRAMES = 720
 BEAT = 12
 BAR = 4 * BEAT
+PICKUP = 3 * BEAT                       # beats 2, 3 and 4 of the first bar
+DOWNBEATS = list(range(PICKUP, FRAMES, BAR))
+FADE_FROM = FRAMES - 3 * BEAT           # the music fades over its last three beats; so does the picture
 
 # (name, first frame, last frame). Each shot has its own camera, CAM_<name>.
 SHOTS = [
-    # Cold open: the room before the pedal.
-    ("bulb", 0, 29),
-    ("floor", 30, 59),
-    ("wake", 60, 95),
-    # fast
-    ("press1", 96, 107),
-    ("flick1", 108, 119),
-    ("press2", 120, 131),
-    ("flick2", 132, 143),
-    ("whip", 144, 167),
-    ("row", 168, 191),
-    ("rack", 192, 215),
-    # seamless
-    ("touch", 216, 263),
-    ("laptop", 264, 299),
-    ("bar", 300, 329),
-    ("monitor", 330, 359),
-    # open
-    ("both", 360, 407),
-    ("old", 408, 431),
-    ("inside", 432, 461),
-    ("rear", 462, 503),
-    # loud
-    ("stomp", 504, 527),
-    ("strobe", 528, 575),
-    ("low", 576, 611),
-    # the last run of cuts, six frames each, borrows the cameras above
-    ("c_press1", 612, 617), ("c_flick1", 618, 623), ("c_old", 624, 629), ("c_inside", 630, 635),
-    ("c_row", 636, 641), ("c_monitor", 642, 647), ("c_stomp", 648, 653), ("c_rear", 654, 659),
-    ("c_press2", 660, 665), ("c_flick2", 666, 671),
-    # out
-    ("end", 672, 719),
+    # The pickup: the bulb flickers on. The first downbeat wakes the pedal.
+    ("bulb", 0, 35),
+    ("wake", 36, 83),
+    # fast: the rig on the screen, blocks toggled on the beat; one bar of a footswitch.
+    ("flick2", 84, 131),
+    ("press1", 132, 179),
+    ("flick1", 180, 227),
+    # seamless: an edit made on the pedal's screen shows in ljoss, and one made in ljoss on the pedal.
+    ("touch", 228, 275),
+    ("laptop", 276, 323),
+    ("bar", 324, 371),
+    ("monitor", 372, 419),
+    # open: both builds; the old one; the console with its lid off.
+    ("both", 420, 467),
+    ("old", 468, 515),
+    ("inside", 516, 563),
+    # loud: a stomp, then the strobe on every beat.
+    ("stomp", 564, 611),
+    ("strobe", 612, 659),
+    # out: the pedals from above while the bulb dies, and the fade.
+    ("end", 660, 719),
 ]
 
 
@@ -55,79 +49,90 @@ def shot_at(frame):
     return None
 
 
-def camera_for(name):
-    """The run of cuts at the end reuses the cameras of the shots it names."""
-    return "CAM_" + (name[2:] if name.startswith("c_") else name)
+def span(name):
+    return next((a, b) for n, a, b in SHOTS if n == name)
 
+
+def camera_for(name):
+    return "CAM_" + name
+
+
+assert all(a in DOWNBEATS for _, a, _ in SHOTS[1:]), "every cut on a downbeat"
+
+# The screen comes on a beat into the pedal's shot: the boot flicker, then the rig.
+BOOT = 48
 
 # Footswitch presses on the console: (frame, switch). Switches 1-5 are the row, "T" the tuner.
 PRESSES = [
-    (99, 3), (121, 1), (126, 2), (138, 4),
-    (170, 1), (174, 2), (178, 3), (182, 4), (186, 5),
-    (506, 3), (528, 2), (540, 4), (552, 1), (564, 3), (588, 3), (600, 5),
-    (615, 3), (651, 3), (663, 2),     # each on the switch its cut's camera is looking at
+    (144, 3), (168, 3),                 # press1, toggling the drive
+    (564, 3), (588, 3),                 # the stomp
+    (624, 1), (636, 2), (648, 1),       # under the strobe
 ]
 
-# Presses on the old 1590DD pedal: (frame, switch "A" "B" or "C").
-OLD_PRESSES = [(416, "B"), (627, "A")]
+# Presses on the old 1590DD pedal: (frame, switch "A" "B" or "C"), and when its LED answers.
+OLD_PRESSES = [(480, "B")]
+OLD_LED_ON = 482
 
 # What the console's bar screen shows: (first frame, image). Images are relative to work/ui/.
-# "off" is the panel dark, "boot" its first flicker.
+# "off" is the panel dark, "boot" its first flicker. The states are the rig captured after each of
+# ui/demo.json's edits, the same on both screens.
+S = {k: f"rigpa/{k}.png" for k in ("01-drive-off", "02-drive-on", "03-echo-off", "04-third-amp",
+                                    "05-ir-off", "06-echo-on", "07-ir-on")}
 BAR_SCREEN = [
     (0, "off"),
-    (70, "boot"),
-    (78, "rigs/Clean.png"),
-    (100, "rigs/Lead.png"),
-    (115, "rigs/Sludge.png"),
-    (122, "rigs/Clean.png"),
-    (127, "rigs/Lead.png"),
-    (133, "rigs/Clean.png"),
-    (137, "rigs/Lead.png"),
-    (139, "rigs/Sludge.png"),
-    (171, "rigs/Clean.png"),
-    (175, "rigs/Lead.png"),
-    (179, "rigs/Sludge.png"),
-    (183, "rigs/Lead.png"),
-    (187, "rigpa/00-start.png"),
-    (237, "rigpa/01-echo-off.png"),
-    (285, "rigpa/02-third-amp.png"),
-    (319, "rigpa/03-echo-on.png"),
-    (507, "rigs/Lead.png"),
-    (529, "rigs/Clean.png"),
-    (541, "rigpa/03-echo-on.png"),
-    (553, "rigs/Lead.png"),
-    (565, "rigs/Sludge.png"),
-    (589, "rigpa/03-echo-on.png"),
-    (601, "rigs/Lead.png"),
-    (616, "rigs/Clean.png"),
-    (652, "rigs/Lead.png"),
-    (664, "rigpa/03-echo-on.png"),
+    (BOOT, "boot"),
+    (BOOT + 8, S["02-drive-on"]),
+    # fast: the drive off and on, then the echo, on the beat.
+    (97, S["01-drive-off"]),
+    (109, S["02-drive-on"]),
+    (121, S["01-drive-off"]),
+    (145, S["02-drive-on"]),            # the footswitch, offscreen
+    (169, S["01-drive-off"]),
+    (193, S["02-drive-on"]),
+    (205, S["03-echo-off"]),
+    (217, S["02-drive-on"]),
+    # seamless: echo off and a third amp here; the IR goes off in ljoss; the echo comes back here.
+    (241, S["03-echo-off"]),
+    (265, S["04-third-amp"]),
+    (301, S["05-ir-off"]),
+    (345, S["06-echo-on"]),
+    (397, S["07-ir-on"]),               # made in ljoss
+    # loud: the IR in and out under the strobe.
+    (625, S["06-echo-on"]),
+    (637, S["07-ir-on"]),
+    (649, S["06-echo-on"]),
+    (660, S["07-ir-on"]),
 ]
 
 # Touches on the bar screen, drawn as a ring where a finger would be: (frame, x, y) in the
-# screen's own 1920 x 480 pixels.
+# screen's own 1920 x 480 pixels. Each lands a few frames before the change it makes.
+SD1, DELAY, PLUS, DELAY_LOW = (626, 180), (1268, 233), (1400, 32), (1268, 285)
 TOUCHES = [
-    (233, 1268, 232),   # the delay: off
-    (281, 1400, 32),    # the + (the palette): a third amp
-    (315, 1268, 285),   # the delay: on again (lower: the third lane pushed it down)
+    (93, *SD1), (105, *SD1), (117, *SD1),
+    (189, *SD1), (201, *DELAY), (213, *DELAY),
+    (237, *DELAY),
+    (261, *PLUS),
+    (341, *DELAY_LOW),                  # the third lane has pushed the row down
 ]
 
 # What ljoss shows on the laptop: (first frame, image), relative to work/ui/.
 LAPTOP_SCREEN = [
-    (0, "ljoss/01-echo-off.png"),
-    (282, "ljoss/02-third-amp.png"),
-    (322, "ljoss/03-echo-on.png"),
+    (0, "ljoss/02-drive-on.png"),
+    (241, "ljoss/03-echo-off.png"),
+    (265, "ljoss/04-third-amp.png"),
+    (301, "ljoss/05-ir-off.png"),
+    (345, "ljoss/06-echo-on.png"),
+    (397, "ljoss/07-ir-on.png"),
 ]
 
-# The four words, each once: (word, first frame, last frame).
+# The four words, each once, each landing on a downbeat: (word, first frame, last frame).
 CAPTIONS = [
-    ("fast", 103, 125),
-    ("seamless", 222, 251),
-    ("open", 366, 395),
-    ("loud", 507, 533),
+    ("fast", 84, 113),
+    ("seamless", 228, 257),
+    ("open", 420, 449),
+    ("loud", 564, 593),
 ]
 
-# Frames the strobe fires on, in the strobe shot: two frames on every beat, which is two flashes a
-# second. Each lands with a stomp (PRESSES). Faster strobing is out: a page that plays this must stay
-# under three flashes a second (WCAG 2.3.1).
-STROBE = [f for f in range(528, 576) if (f - 528) % BEAT in (0, 1)]
+# Frames the strobe fires on: two frames on every beat of its shot, which is two flashes a second.
+# Faster strobing is out: a page that plays this must stay under three flashes a second (WCAG 2.3.1).
+STROBE = [f for f in range(*span("strobe")) if (f - span("strobe")[0]) % BEAT in (0, 1)]

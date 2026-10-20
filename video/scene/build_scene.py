@@ -755,8 +755,6 @@ def pedals():
         frames = [f for f, s in TL.PRESSES if s == sw]
         if frames:
             press(cap, frames, 3.2)
-    turn(bpy.data.objects["Volume_Knob"], 156, 166, 75)
-    turn(bpy.data.objects["Encoder_Knob"], 196, 212, -40)
 
     # The old pedal's footswitches, and the LED above B answering its press.
     for n in ("A", "B", "C"):
@@ -775,7 +773,7 @@ def pedals():
                 slot.material = m
         s = m.node_tree.nodes["Principled BSDF"].inputs["Emission Strength"]
         on = s.default_value
-        for f, v in ((0, 0.0), (417, 0.0), (418, on), (TL.FRAMES - 1, on)):
+        for f, v in ((0, 0.0), (TL.OLD_LED_ON - 1, 0.0), (TL.OLD_LED_ON, on), (TL.FRAMES - 1, on)):
             s.default_value = v
             s.keyframe_insert("default_value", frame=f)
         for fc in fcurves_of(m.node_tree.animation_data.action):
@@ -800,7 +798,7 @@ def pedals():
     b.inputs["Roughness"].default_value = 0.3
 
     # The lid comes off for the look inside.
-    for f0, f1 in ((432, 461), (630, 635)):
+    for f0, f1 in (TL.span("inside"),):
         for k in ("Console_Cover", "Console_Screen"):
             e = inst[k]
             for f, v in ((f0 - 1, False), (f0, True), (f1, True), (f1 + 1, False)):
@@ -854,15 +852,16 @@ def lighting(coll, bulb_light, filament):
     sn = (console_point(217, 104 - 100 * math.sin(math.radians(15)), 69 + 100 * math.cos(math.radians(15))) - sc).normalized()
     glow = area("ScreenGlow", coll, sc + sn * 0.01, sc + sn, 0.2, 0.0, (0.85, 0.7, 0.55), shape="RECTANGLE", size_y=0.05)
     g = 1.5
-    keys = [(0, 0.0), (70, 0.0), (71, 2.0 * g), (72, 0.15 * g), (75, 0.8 * g), (78, g)]
-    for f0, f1 in ((432, 461), (630, 635)):
+    b0 = TL.BOOT
+    keys = [(0, 0.0), (b0, 0.0), (b0 + 1, 2.0 * g), (b0 + 2, 0.15 * g), (b0 + 5, 0.8 * g), (b0 + 8, g)]
+    for f0, f1 in (TL.span("inside"),):
         keys += [(f0 - 1, g), (f0, 0.0), (f1, 0.0), (f1 + 1, g)]
     key_energy(glow.data, keys, constant=True)
     # Red, low and raking, for the look inside.
     rake = area("RedRake", coll, console_point(-120, 140, 70), console_point(250, 140, 10), 0.12, 0.0,
                 (1.0, 0.08, 0.03))
     keys = [(0, 0.0)]
-    for f0, f1 in ((432, 461), (630, 635)):
+    for f0, f1 in (TL.span("inside"),):
         keys += [(f0 - 1, 0.0), (f0, 45.0), (f1, 45.0), (f1 + 1, 0.0)]
     key_energy(rake.data, keys, constant=True)
     # The strobe, on the beat and on every stomp from "loud" on: a hard, narrow head from the
@@ -871,16 +870,19 @@ def lighting(coll, bulb_light, filament):
     strobe.data.spread = math.radians(45)
     strobe.data.volume_factor = 0.5
     keys = [(0, 0.0)]
-    flashes = set(TL.STROBE) | {f for f, _ in TL.PRESSES if f >= 504} | {f + 1 for f, _ in TL.PRESSES if f >= 504}
-    for f in range(500, TL.FRAMES):
+    loud = TL.span("stomp")[0]
+    flashes = set(TL.STROBE) | {f for f, _ in TL.PRESSES if f >= loud} | {f + 1 for f, _ in TL.PRESSES if f >= loud}
+    for f in range(loud - 4, TL.FRAMES):
         keys.append((f, 160.0 if f in flashes else 0.0))
     key_energy(strobe.data, keys, constant=True)
     # The bulb: dark, a flicker, on; dimmed under the strobe; dying at the end.
     B = 40.0
+    (i0, i1), (s0, s1), (e0, _) = TL.span("inside"), TL.span("strobe"), TL.span("end")
+    d = e0 + 12                         # it starts to die a beat into the last shot
     e_bulb = [(0, 0.0), (5, 0.0), (6, B), (7, 0.0), (9, 0.0), (10, B * 1.3), (11, B * 0.3), (13, B),
-              (15, B), (431, B), (432, B * 0.25), (461, B * 0.25), (462, B), (527, B), (528, B * 0.25),
-              (575, B * 0.25), (576, B), (629, B), (630, B * 0.25), (635, B * 0.25), (636, B),
-              (690, B), (696, B * 0.3), (697, B * 0.8), (700, B * 0.1), (704, B * 0.45), (708, 0.0), (719, 0.0)]
+              (15, B), (i0 - 1, B), (i0, B * 0.25), (i1, B * 0.25), (i1 + 1, B), (s0 - 1, B), (s0, B * 0.25),
+              (s1, B * 0.25), (s1 + 1, B), (d, B), (d + 6, B * 0.3), (d + 7, B * 0.8), (d + 10, B * 0.1),
+              (d + 14, B * 0.45), (d + 18, 0.0), (TL.FRAMES - 1, 0.0)]
     key_energy(bulb_light.data, e_bulb, constant=True)
     s = filament.data.materials[0].node_tree.nodes["Principled BSDF"].inputs["Emission Strength"]
     for f, v in e_bulb:
@@ -935,7 +937,7 @@ def shots():
                           None)
 
     def bulb_pose(t):
-        f = 0 + t * 29
+        f = t * (TL.span("bulb")[1] - TL.span("bulb")[0])
         tgt = bulb_position(f)
         return (Vector(BULB_PIVOT) + Vector((0.25, -0.54, -1.63)) + Vector((0.0, 0.03, 0.0)) * t, tgt, 0.0, None)
     S["bulb"] = dict(lens=85, fstop=1.8, shake=0.6, pose=bulb_pose)
@@ -960,30 +962,6 @@ def shots():
         return (lerp(C(310, -270, 205), C(320, -255, 200), t), tgt, lerp(-4, 5, k), None)
     S["whip"] = dict(lens=50, fstop=2.2, shake=0.5, pose=whip)
 
-    # Along the row, close and a little above, in snaps: the camera jumps to each switch, holds
-    # still while it goes down, and jumps to the next.
-    row_a, row_b = next((a, b) for n, a, b in TL.SHOTS if n == "row")
-    row_presses = sorted(f for f, sw in TL.PRESSES if row_a <= f <= row_b)
-    row_x = [57.4 + 80 * k for k in range(len(row_presses))]
-
-    def row_x_at(f):
-        if f <= row_presses[0] - 1:
-            return row_x[0] - 25 * ease(max(0.0, min(1.0, (row_presses[0] - 1 - f) / 2)))
-        for k, p in enumerate(row_presses):
-            nxt = row_presses[k + 1] if k + 1 < len(row_presses) else None
-            if f <= p + 1:                       # held while the cap goes down
-                return row_x[k]
-            if nxt is None:
-                return row_x[k] + 40 * ease(min(1.0, (f - p - 1) / 3))
-            if f < nxt - 1:                      # two frames' snap to the next
-                return lerp(row_x[k], row_x[k + 1], ease((f - p - 1) / (nxt - 2 - p)))
-        return row_x[-1]
-
-    def row(t):
-        x = row_x_at(row_a + t * (row_b - row_a))
-        return (C(x - 15, -40, 115), C(x + 5, 34.8, 60), -3.0, None)
-    S["row"] = dict(lens=28, fstop=5.6, shake=0.3, pose=row)
-
     # Switch 3 sharp low in the frame, the screen soft above it; then the focus pulls to the screen.
     def rack(t):
         pos = lerp(C(225, -95, 118), C(222, -86, 113), ease(t))
@@ -993,7 +971,7 @@ def shots():
         return (pos, C(217, 66, 60), 4.0, lerp(near, far, k))
     S["rack"] = dict(lens=65, fstop=1.4, shake=0.3, pose=rack)
     S["touch"] = dict(lens=50, fstop=4.0, shake=0.25,
-                      pose=fixed(C(217, -70, 235), C(225, -18, 185), C(250, 104, 69), C(255, 104, 69), roll=-2, roll1=1))
+                      pose=fixed(C(212, -75, 240), C(220, -52, 218), C(238, 104, 69), C(242, 104, 69), roll=-2, roll1=1))
 
     def laptop_shot(t):
         c, n = LAPTOP_SCREEN_CENTER, LAPTOP_SCREEN_NORMAL

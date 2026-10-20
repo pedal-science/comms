@@ -13,8 +13,8 @@ matches the frames around it.
 The look is a 16 mm print, pushed: crushed blacks, warm highlights and teal shadows, halation round
 anything hot, heavy grain, a weaving gate and a flickering lamp, dust, the odd scratch, a light leak
 at three cuts and one frame slip. Every stomp jolts the frame. The two shots of the laptop are a Hi8
-camcorder pointed at a screen, the strobe is step-printed (each frame held for two), and every other
-cut in the last run is black and white. The only words are the four in timeline.py, set in a
+camcorder pointed at a screen, the strobe is step-printed (each frame held for two), and the last
+three beats fade to black with the music. The only words are the four in timeline.py, set in a
 typewriter face. tools/flashcheck.py checks the result for flashing before anything is published.
 """
 import argparse
@@ -50,16 +50,16 @@ TRIM = {
 HI8 = {"laptop", "monitor"}
 STEP_PRINTED = {"strobe"}
 # Cuts that burn in at the start: (frame, frames long, from the "left" or "right").
-LEAKS = [(360, 7, "right"), (504, 5, "left"), (672, 9, "right")]
-# The frame slips in the gate for two frames, showing the frame line, at the start of the last run.
-SLIPS = {612: 0.28, 613: 0.12}
+LEAKS = [(TL.span("both")[0], 7, "right"), (TL.span("stomp")[0], 5, "left"), (TL.span("end")[0], 9, "right")]
+# The frame slips in the gate for two frames, showing the frame line, as the strobe starts.
+SLIPS = {TL.span("strobe")[0]: 0.28, TL.span("strobe")[0] + 1: 0.12}
 # Every stomp jolts the picture, as if the floor took it: down, back past, settled (pixels at 1080).
 JOLTS = {}
 for _f in [f for f, _ in TL.PRESSES] + [f for f, _ in TL.OLD_PRESSES]:
-    for _df, _dy in ((0, 7.0), (1, -3.0), (2, 1.0)):
+    for _df, _dy in ((0, 3.5), (1, -1.5), (2, 0.5)):
         JOLTS[_f + _df] = JOLTS.get(_f + _df, 0.0) + _dy
-# In the last run of cuts, every other one is black and white.
-MONO = {"c_flick1", "c_inside", "c_stomp", "c_press2"}
+# Shots printed in black and white (none in this cut).
+MONO = set()
 # Where each word sits, as fractions of the frame (its left edge, its baseline), its size as a
 # fraction of the frame's height, and a tilt in degrees.
 WORDS = {
@@ -359,9 +359,9 @@ def finish(f):
     x = words(x, f)
     x = dust(x, f)
     x = grain(x, f, 0.05 if base in HI8 else 0.042)
-    # Out: the end fades away under the grain.
-    if f >= TL.FRAMES - 10:
-        x = x * ((TL.FRAMES - 1 - f) / 9.0) ** 1.5
+    # Out: the last three beats fade to black with the music.
+    if f >= TL.FADE_FROM:
+        x = x * ((TL.FRAMES - 1 - f) / (TL.FRAMES - 1 - TL.FADE_FROM)) ** 1.5
     x = np.clip(x, 0, 1)
     out = (x * 255 + np.random.default_rng(900000 + f).random(x.shape) - 0.5).clip(0, 255).astype(np.uint8)
     cv2.imwrite(os.path.join(FINAL, f"{f:04d}.png"), cv2.cvtColor(out, cv2.COLOR_RGB2BGR), [cv2.IMWRITE_PNG_COMPRESSION, 1])

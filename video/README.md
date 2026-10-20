@@ -3,7 +3,7 @@
 Thirty seconds of the pedal in a dark room, shot like a 90s grunge video: a bare bulb on its flex, a
 rug, a streetlight through half-shut blinds, the pedal waking, stomps, a strobe. No people and no
 narration; the only words on screen are **fast**, **seamless**, **open** and **loud**. It is silent:
-the soundtrack is added afterwards (below). It is separate from the long video in
+the soundtrack, the owner playing the pedal, goes on afterwards (below). It is separate from the long video in
 [outline.md](outline.md), and can be the website's hero loop until that exists.
 
 Everything in it is rendered: the 3D models from `pedal.project/enclosure/`, a set built in code
@@ -13,27 +13,35 @@ because the footswitches are not working yet; the stomp shoot in the outline wai
 
 | | Frames | What it shows |
 |---|---|---|
-| Cold open | 0–95 | The bulb flickers on and swings. The floor. The pedal's screen boots |
-| **fast** | 96–215 | Presses and the bar screen flicking between rigs; a whip pan; the row of switches; a rack focus |
-| **seamless** | 216–359 | One edit made twice: on the pedal's touch screen (echo off, a third amp, echo on) and the same rig, same edits, in ljoss on a laptop |
-| **open** | 360–503 | Both enclosures side by side — the console (current) and the 1590DD box (the other build) — the old one's press, the console with its lid off, the rear panel's jacks |
-| **loud** | 504–611 | Stomps, a strobe on the beat, a low shot under the strip light |
-| Out | 612–719 | Ten six-frame cuts, then the pedals from above while the bulb dies |
+| Pickup | 0–35 | The bulb flickers on and swings |
+| | 36–83 | The pedal; its screen boots |
+| **fast** | 84–227 | The rig on the bar screen, blocks toggled on the beat; one bar of a footswitch |
+| **seamless** | 228–419 | Echo off and a third amp on the pedal's touch screen; the same rig on a laptop in ljoss, where the IR goes off; back on the pedal, which shows it, the echo comes on; in ljoss again, the IR comes back |
+| **open** | 420–563 | Both enclosures side by side — the console (current) and the 1590DD box (the other build) — the old one's press, the console with its lid off |
+| **loud** | 564–659 | A stomp, then the strobe on every beat with the IR switched in and out |
+| Out | 660–719 | The pedals from above while the bulb dies; the last three beats fade to black |
+
+The rig is the owner's: the Boss SD-1 (APP-SD1-Drive-II) into the Orange Rockerverb (ORNG-V30-e609),
+in parallel with the Ampeg VT-40, then the Deftones *Diamond Eyes* IR and a tape echo; the third
+lane added on screen is RIFF TAPE's Green Russian + OR120 + PPC412. ljoss carries NAM captures only
+in amp blocks, so the SD-1 sits in one there (rigpa names it by its capture). rigpa shows each
+capture by the name stored in it, which for the Green Russian is its trainer's.
 
 ## The grid, for the soundtrack
 
-**24 fps, 720 frames, 120 BPM**: a beat is 12 frames (0.5 s), a bar 48 (2 s). Every section starts
-on a beat and every cut on a beat or a half beat, so music at 120 BPM (or 60 or 240) starting at
-0:00.000 sits on the cuts.
+**24 fps, 720 frames, 4/4 at 120 BPM**: a beat is 12 frames (0.5 s), a bar 48 (2 s), and the video
+starts on **beat 2** of a bar. So the first three beats are a pickup, the downbeats fall on frames
+36, 84, 132 … 708 (0:01.5, 0:03.5, 0:05.5 … 0:29.5), and the music's last three beats, from 0:28.5,
+are its fade, which the picture follows to black. Every cut and every word starts on a downbeat;
+presses, screen toggles and strobe hits fall on beats.
 
-| At | Frame | Beat |
+| At | Frame | |
 |---|---|---|
-| 0:04.0 | 96 | **fast**: the presses start |
-| 0:09.0 | 216 | **seamless** |
-| 0:15.0 | 360 | **open** |
-| 0:21.0 | 504 | **loud**: the strobe fires on every beat from 0:22.0 to 0:23.5 |
-| 0:25.5 | 612 | the last run of cuts, one every half beat |
-| 0:28.0 | 672 | out; the bulb dies at 0:28.75–0:29.5, black by 0:30 |
+| 0:03.5 | 84 | **fast** |
+| 0:09.5 | 228 | **seamless** |
+| 0:17.5 | 420 | **open** |
+| 0:23.5 | 564 | **loud**; the strobe fires on every beat from 0:25.5 to 0:27.0 |
+| 0:27.5 | 660 | out; the bulb dies from 0:28.0, black at 0:30 |
 
 Every press is in `scene/timeline.py` (`PRESSES`), so hits can be placed on them. To put the
 soundtrack on, with the files from `out/`:
