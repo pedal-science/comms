@@ -16,6 +16,7 @@ that live elsewhere.
 | `docs/claims.md` | Every number or claim the website or video makes, with the evidence it rests on |
 | `website/outline.md` | The site: its map, the first page (the overview) in detail, and what comes later |
 | `video/outline.md` | The video: its structure, scenes, shots, a draft narration, and how it is recorded |
+| `video/README.md` | The teaser: thirty rendered seconds, made by `video/scene/` and `video/tools/` (the edit is `video/scene/timeline.py`) |
 | `assets/` | Footage, audio, renders and photos, once made (see `assets/README.md`) |
 
 ## Rules
@@ -38,7 +39,8 @@ that live elsewhere.
   or IR files themselves here — link to where they are published.
 - **The audio in the video is the pedal's own output**, recorded at the jack, and is not edited
   across a switch.
-- **Hardware is shown from the 3D model** of the current enclosure (Hammond 1456RH3) and its 8.8″
-  screen, which lives in `pedal.project/enclosure/`; comms holds only its renders.
+- **Hardware is shown from the 3D models** in `pedal.project/enclosure/`: the current enclosure
+  (Hammond 1456RH3) and its 8.8″ screen, and the 1590DD box with its 2.4″ screen, shown as the other
+  build anyone might make (owner, 2026-10-20). comms holds only their renders.
 - No brand marks of competitors beyond naming them.
 - Commit to `main`; pushes wait for the owner's say-so.

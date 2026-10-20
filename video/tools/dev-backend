@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+# dev-backend — the engine and pedald the video's screens are captured from, on this Mac.
+#
+# rigpa's dev/dev-pedal, run once to lay out video/work/dev (its configs, token, fixture rigs), then
+# the same two processes started here with one difference: the engine charges rigs from vip's own
+# measured cost table (pedal.project/devices/vip/rootfs/etc/namchain/cost.json). Without one every
+# model costs the "unknown" 0.25 of a core and the video's rig, three amps in parallel, is refused as
+# over budget — which on the pedal it is not. The library is ~/Documents/Audio's NAM/ and IRs/, read
+# only, as dev-pedal reads it.
+#
+#   tools/dev-backend          runs until Ctrl-C; engine on 127.0.0.1:47816, pedald on :47826
+set -euo pipefail
+
+HERE=$(cd "$(dirname "$0")/.." && pwd)
+WORKSPACE=$(cd "$HERE/../.." && pwd)
+DEV=$HERE/work/dev
+RIGPA=$WORKSPACE/rigpa
+NAMCHAIND=$WORKSPACE/namchain/build-mac/namchaind
+ROOTFS=$WORKSPACE/pedal.project/devices/common/rootfs
+COST=$WORKSPACE/pedal.project/devices/vip/rootfs/etc/namchain/cost.json
+
+die() { printf 'dev-backend: %s\n' "$*" >&2; exit 1; }
+[[ -x $NAMCHAIND ]] || die "no $NAMCHAIND"
+[[ -f $COST ]] || die "no cost table at $COST"
+for port in 47816 47826; do
+  ! nc -z 127.0.0.1 "$port" 2>/dev/null || die "something already listens on 127.0.0.1:$port"
+done
+
+# Let dev-pedal write the layout, then stop it: everything after that is ours.
+if [[ ! -f $DEV/namchaind.json ]]; then
+  (RIGPA_DEV_DIR=$DEV RIGPA_DEV_ENGINE_PORT=47816 RIGPA_DEV_PEDALD_PORT=47826 "$RIGPA/dev/dev-pedal" &
+   sleep 4; pkill -f "$DEV/namchaind.json" || true; pkill -f "$DEV/pedald.json" || true) >/dev/null 2>&1 || true
+  sleep 1
+fi
+[[ -f $DEV/namchaind.json ]] || die "dev-pedal did not write $DEV/namchaind.json"
+
+# vip's table, plus a figure for each macro node type it does not price yet, so rigpa shows the
+# rig's health as ok rather than "charged the unknown cost" (which is about a gap in the table, not
+# about the audio). Each is the sum of the primitives the macro lowers to, at vip's own rows: a tone
+# stack is three biquads, a cab is an 8192-tap IR and two biquads, a tilt is two biquads, a
+# feedback delay a delay line and a mix.
+python3 - "$DEV/namchaind.json" "$COST" "$DEV/cost-video.json" <<'PY'
+import json, sys
+path, cost, out = sys.argv[1], sys.argv[2], sys.argv[3]
+table = json.load(open(cost))
+row = table["core_percent"]["node"]
+biquad, ir8192 = row["nc.eq.biquad"], table["core_percent"]["IR"]["8192"]
+row.setdefault("fx.amp.tonestack", round(3 * biquad, 5))
+row.setdefault("fx.cab.ir", round(ir8192 + 2 * biquad, 5))
+row.setdefault("fx.eq.tilt", round(2 * biquad, 5))
+row.setdefault("fx.delay.feedback", round(row["nc.delay"] + row["nc.mix"], 5))
+json.dump(table, open(out, "w"), indent=2)
+cfg = json.load(open(path))
+cfg["cost_table"] = out
+json.dump(cfg, open(path, "w"), indent=2)
+PY
+
+mkdir -p "$DEV/logs"
+pids=()
+stop() { for pid in "${pids[@]}"; do kill "$pid" 2>/dev/null || true; done; wait 2>/dev/null || true; }
+trap stop EXIT INT TERM
+(cd "$DEV" && exec "$NAMCHAIND" --config "$DEV/namchaind.json") > "$DEV/logs/namchaind.log" 2>&1 &
+pids+=($!)
+PEDALD_LIB=$ROOTFS/usr/local/lib python3 "$ROOTFS/usr/local/sbin/pedald" run --config "$DEV/pedald.json" \
+  --engine-config "$DEV/namchaind.json" > "$DEV/logs/pedald.log" 2>&1 &
+pids+=($!)
+printf 'engine on 127.0.0.1:47816 (vip cost table, video rows), pedald on 127.0.0.1:47826; logs in %s/logs\n' "$DEV"
+wait -n "${pids[@]}" || true
+die "a back-end process stopped; see $DEV/logs/"

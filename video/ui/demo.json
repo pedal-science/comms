@@ -1,0 +1,31 @@
+{
+  "engine": {"host": "127.0.0.1", "port": 47816, "tokenFile": "@DEV@/token"},
+  "rigName": "Sludge",
+  "window": [1500, 880],
+  "elements": [
+    {"lanes": [
+      [{"block": "amp.rectified", "model": "000 Unsorted/Ampeg SVT VR _ 8x10 _ Beta52A + DI", "values": {"gain": 7}},
+       {"block": "cab.ir", "ir": "Ampeg 4x10/York Audio AMPG 410 HS v1.01/48k (Fractal, Line 6, Suhr, etc.)/Mixes/YA AMPG 410 HS Mix 02"}],
+      [{"block": "amp.britplexi", "model": "2015 Orange Rockerverb 100 MK III (A2)/ORNG-V30-M81-Center", "values": {"gain": 8}},
+       {"block": "cab.ir", "ir": "Marshall 4x12 V30 IR/EV MIX D"}]
+    ]},
+    {"block": "eq.tilt", "values": {"tilt": 1.5}},
+    {"block": "delay.tape", "values": {"time": 380, "mix": 25}}
+  ],
+  "steps": [
+    {"op": "snap", "name": "00-start"},
+    {"op": "wait", "ms": 7000},
+    {"op": "toggle", "block": 5},
+    {"op": "snap", "name": "01-echo-off"},
+    {"op": "wait", "ms": 7000},
+    {"op": "addLane", "parallel": 0, "elements": [
+      {"block": "amp.cleanblack", "model": "000 Unsorted/Fender Super Reverb_ EQ Flat, Volume 3, AKG 414", "values": {"gain": 6}},
+      {"block": "cab.ir", "ir": "Mesa_OS_4x12_57_m160"}]},
+    {"op": "snap", "name": "02-third-amp"},
+    {"op": "wait", "ms": 7000},
+    {"op": "toggle", "block": 7},
+    {"op": "snap", "name": "03-echo-on"},
+    {"op": "wait", "ms": 7000},
+    {"op": "quit"}
+  ]
+}

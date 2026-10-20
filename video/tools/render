@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# render — the teaser's frames: build the scene from its sources, then render frames of it.
+#
+#   tools/render                   build, then all 720 frames into work/frames/
+#   tools/render 96 215            build, then just those frames
+#   tools/render --no-build A B    render from the work/video.blend already built
+#   tools/render --scale 150 ...   at 150% of 1280 x 720 (1920 x 1080), for the final pass
+#
+# Needs Blender 5.2 on PATH, work/plates/ (tools/make_plates.py) and work/tex/ (tools/make_textures.py).
+set -euo pipefail
+HERE=$(cd "$(dirname "$0")/.." && pwd)
+build=1 scale=100
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --no-build) build=0; shift ;;
+    --scale) scale=$2; shift 2 ;;
+    *) break ;;
+  esac
+done
+first=${1:-0} last=${2:-719}
+[[ -d $HERE/work/plates/bar && -f $HERE/work/tex/rug.png ]] || {
+  printf 'render: run tools/make_plates.py and tools/make_textures.py first\n' >&2; exit 1; }
+if (( build )); then
+  blender -b --factory-startup -P "$HERE/scene/build_scene.py" > "$HERE/work/build.log" 2>&1 ||
+    { tail -20 "$HERE/work/build.log" >&2; exit 1; }
+fi
+mkdir -p "$HERE/work/frames"
+blender -b "$HERE/work/video.blend" --python-expr \
+  "import bpy; bpy.context.scene.render.resolution_percentage = $scale" \
+  -o "$HERE/work/frames/####" -s "$first" -e "$last" -a 2>&1 |
+  grep --line-buffered -E "Saved: |Error|Traceback" || true

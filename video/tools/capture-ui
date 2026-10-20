@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+# capture-ui — the two screens of the video, showing the same rig and the same edits.
+#
+# One engine, two clients. ljoss's scripted run (its DemoMode, LJOSS_DEMO) builds the rig in
+# video/ui/demo.json, sends it to the engine and makes the script's edits through the same calls its
+# canvas makes, saving its window after each. Every time it saves one, rigpa — the pedal's own UI —
+# is started offscreen against the same engine and saves its screen too. rigpa follows whatever the
+# engine is running, so the two pictures are of one rig in one state, not two lookalikes.
+#
+#   tools/capture-ui            needs the dev back end running (tools/dev-backend, video/README.md)
+#
+# Writes video/work/ui/ljoss/*.png (the ljoss window) and video/work/ui/rigpa/*.png (1920 x 480).
+set -euo pipefail
+shopt -s nullglob
+
+HERE=$(cd "$(dirname "$0")/.." && pwd)
+WORKSPACE=$(cd "$HERE/../.." && pwd)
+DEV=$HERE/work/dev
+OUT=$HERE/work/ui
+DEMO=$HERE/work/ljoss-demo
+LJOSS_APP=$WORKSPACE/ljoss/build/dd-demo/Build/Products/Debug/Ljoss.app
+RIGPA=$WORKSPACE/rigpa/build/mac-debug/rigpa.app/Contents/MacOS/rigpa
+
+die() { printf 'capture-ui: %s\n' "$*" >&2; exit 1; }
+[[ -d $LJOSS_APP ]] || die "no demo build of ljoss at $LJOSS_APP (video/README.md says how)"
+[[ -x $RIGPA ]] || die "no rigpa build at $RIGPA"
+nc -z 127.0.0.1 47816 2>/dev/null || die "no engine on 127.0.0.1:47816: start the dev back end first"
+
+rm -rf "$DEMO" "$OUT/ljoss" "$OUT/rigpa"
+mkdir -p "$DEMO" "$OUT/ljoss" "$OUT/rigpa"
+sed "s|@DEV@|$DEV|g" "$HERE/ui/demo.json" > "$DEMO/demo.json"
+
+# rigpa offscreen on a screen with room for its 1920 x 480 design size, so it opens at 1:1.
+cat > "$OUT/offscreen.json" <<'JSON'
+{"synchronousWindowSystemEvents": true, "windowFrameMargins": false,
+ "screens": [{"name": "Bar", "x": 0, "y": 0, "width": 2000, "height": 600, "logicalDpi": 96, "logicalBaseDpi": 96, "dpr": 1}]}
+JSON
+rigpa_snap() {
+  QT_QPA_PLATFORM="offscreen:configfile=$OUT/offscreen.json" "$RIGPA" --config "$DEV/rigpa.json" \
+    --screenshot "$OUT/rigpa/$1.png" 2>/dev/null || printf 'capture-ui: rigpa could not save %s\n' "$1" >&2
+}
+
+# Start from another rig, so the first state is the engine taking ljoss's, not one left over.
+python3 "$HERE/tools/engine.py" load "$DEV" Clean.json >/dev/null
+rm -f "$OUT/state.json"
+
+# In the background (-g), so it takes no focus from whatever is on the screen.
+open -g -n "$LJOSS_APP" --env "LJOSS_DEMO=$DEMO" --stdout "$OUT/ljoss.log" --stderr "$OUT/ljoss.log"
+printf 'ljoss started; waiting for its snapshots\n'
+
+# The snaps the script will make, in order: done when the last has been answered.
+expected=$(python3 -c 'import json,sys; print(" ".join(s["name"] for s in json.load(open(sys.argv[1]))["steps"] if s["op"] == "snap"))' "$DEMO/demo.json")
+seen=()
+for _ in $(seq 1 600); do
+  for png in "$DEMO"/out/*.png; do
+    name=$(basename "$png" .png)
+    [[ " ${seen[*]-} " == *" $name "* ]] && continue
+    seen+=("$name")
+    cp "$png" "$OUT/ljoss/$name.png"
+    # rigpa shows what the engine has, and ljoss's edit takes a moment to get there.
+    printf '  %s: engine %s\n' "$name" "$(python3 "$HERE/tools/engine.py" settle "$DEV" "$OUT/state.json" --save-as "$DEV/library/rigs")"
+    sleep 2   # past the moment a new model is brought up, when DSP reads high for a beat
+    rigpa_snap "$name"
+    printf '  %s: ljoss and rigpa\n' "$name"
+  done
+  [[ ${#seen[@]} -ge $(wc -w <<<"$expected") ]] && break
+  sleep 0.25
+done
+# The rig list, for the cuts between rigs: rigpa with each of the library's rigs loaded in turn,
+# ending back on the video's own rig.
+mkdir -p "$OUT/rigs"
+for rig in Clean Lead Dual Flow Sludge; do
+  python3 "$HERE/tools/engine.py" load "$DEV" "$rig.json" >/dev/null
+  python3 "$HERE/tools/engine.py" settle "$DEV" "$OUT/state.json" >/dev/null
+  sleep 2
+  rigpa_snap "../rigs/$rig"
+  printf '  rig %s\n' "$rig"
+done
+printf 'done: %s\n' "$OUT"
