@@ -16,7 +16,7 @@ path `website/**`. The `name` in `wrangler.jsonc` must match the Worker's name i
 pnpm's version comes from `packageManager`, Node's from `.node-version`.
 
 `public/renders/` are JPEG copies of `pedal.project/enclosure/renders/console_*.png` from
-pedal.project `aa001b8`. Re-export them from there when the model changes; never edit them here.
+pedal.project `8792bae`. Re-export them from there when the model changes; never edit them here.
 
 Type: the sidebar's title is Piazzolla 900 (Fontsource, `@fontsource/piazzolla`); everything else is
 Lexica Ultralegible, whose four WOFF2 files and OFL licence are in
