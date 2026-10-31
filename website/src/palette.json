@@ -5,61 +5,61 @@
 			"group": "Page",
 			"use": "Page background",
 			"light": "#ffffff",
-			"dark": "#000000"
+			"dark": "#0d161a"
 		},
 		"raised": {
 			"group": "Page",
 			"use": "Table headings and other raised surfaces",
 			"light": "#f9f9f9",
-			"dark": "#111111"
+			"dark": "#0e0f16"
 		},
 		"text": {
 			"group": "Page",
 			"use": "Body text and headings",
 			"light": "#000000",
-			"dark": "#f9f9f9"
+			"dark": "#cdc1c9"
 		},
 		"muted": {
 			"group": "Page",
 			"use": "Captions and secondary text (never on raised: it fails AA there)",
 			"light": "#767676",
-			"dark": "#999999"
+			"dark": "#8c9ba0"
 		},
 		"line": {
 			"group": "Page",
 			"use": "Thick outlines: panels, images, the tab strip",
 			"light": "#000000",
-			"dark": "#333333"
+			"dark": "#1d232d"
 		},
 		"rule": {
 			"group": "Page",
 			"use": "Thin dividers between table rows and sources",
 			"light": "#e0e0e0",
-			"dark": "#333333"
+			"dark": "#1a2327"
 		},
 		"accent": {
 			"group": "Fills",
 			"use": "Neon: a feature band, shadows, the highlighter, selected text",
-			"light": "#adff00",
-			"dark": "#adff00"
+			"light": "#eccda0",
+			"dark": "#016879"
 		},
 		"accent-2": {
 			"group": "Fills",
 			"use": "Pink: a feature band, list markers, tags",
-			"light": "#ff9cff",
-			"dark": "#ff9cff"
+			"light": "#aad9fc",
+			"dark": "#345378"
 		},
 		"panel": {
 			"group": "Fills",
 			"use": "Peach: a feature band",
-			"light": "#ffd9cc",
-			"dark": "#ffd9cc"
+			"light": "#c8c5fd",
+			"dark": "#3b3158"
 		},
 		"on-fill": {
 			"group": "Fills",
 			"use": "Text and outlines on the neon, pink and peach fills",
 			"light": "#000000",
-			"dark": "#000000"
+			"dark": "#cfcfcf"
 		},
 		"shadow": {
 			"group": "Fills",
@@ -71,37 +71,37 @@
 			"group": "Links",
 			"use": "Links under the pointer",
 			"light": "#2e1fb8",
-			"dark": "#adff00"
+			"dark": "#75b7ff"
 		},
 		"focus": {
 			"group": "Links",
 			"use": "The keyboard focus ring",
 			"light": "#2e1fb8",
-			"dark": "#adff00"
+			"dark": "#7e9eda"
 		},
 		"button": {
 			"group": "Buttons",
 			"use": "Button background",
 			"light": "#000000",
-			"dark": "#adff00"
+			"dark": "#326148"
 		},
 		"button-ink": {
 			"group": "Buttons",
 			"use": "Button text and icon",
 			"light": "#ffffff",
-			"dark": "#000000"
+			"dark": "#cef1f0"
 		},
 		"button-hover": {
 			"group": "Buttons",
 			"use": "Button background under the pointer",
 			"light": "link-hover",
-			"dark": "accent-2"
+			"dark": "#327d83"
 		},
 		"button-shadow": {
 			"group": "Buttons",
 			"use": "Button offset shadow",
 			"light": "accent",
-			"dark": "accent-2"
+			"dark": "#163927"
 		},
 		"highlight": {
 			"group": "Highlighter",
@@ -119,7 +119,7 @@
 			"group": "Sidebar",
 			"use": "Sidebar and tab strip background",
 			"light": "accent",
-			"dark": "#111111"
+			"dark": "#191f2a"
 		},
 		"sidebar-text": {
 			"group": "Sidebar",
@@ -143,7 +143,7 @@
 			"group": "Sidebar",
 			"use": "The GitHub button’s shadow",
 			"light": "accent-2",
-			"dark": "button-shadow"
+			"dark": "#0e1418"
 		},
 		"tab-border": {
 			"group": "Tabs",
@@ -161,7 +161,7 @@
 			"group": "Tabs",
 			"use": "Their text",
 			"light": "page",
-			"dark": "on-fill"
+			"dark": "#e3e3e3"
 		}
 	}
 }
