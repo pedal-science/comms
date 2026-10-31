@@ -132,6 +132,12 @@ const repos = [
 					<h2 id="hardware">Hardware</h2>
 					<div class="parts-wrap">
 						<table class="parts">
+							<colgroup>
+								<col class="col-name" />
+								<col />
+								<col class="col-example" />
+								<col class="col-price" />
+							</colgroup>
 							<caption>Prices are approximate, in pounds sterling.</caption>
 							<thead>
 								<tr>
@@ -263,9 +269,12 @@ const repos = [
 	.nowrap {
 		white-space: nowrap;
 	}
+	/* One line, always: the sidebar's narrowest (18rem less its padding) leaves 240px. */
 	.gh {
-		font-size: 0.875rem;
-		padding: 8px 20px 8px 8px;
+		font-size: 0.8125rem;
+		white-space: nowrap;
+		gap: 8px;
+		padding: 8px 16px 8px 8px;
 	}
 	@media (prefers-color-scheme: light) {
 		.gh {
@@ -327,7 +336,7 @@ const repos = [
 
 	@media (min-width: 64rem) {
 		.layout {
-			grid-template-columns: minmax(17rem, 24vw) 52px minmax(0, 1fr);
+			grid-template-columns: minmax(18rem, 24vw) 52px minmax(0, 1fr);
 		}
 		.sidebar {
 			position: sticky;
@@ -384,6 +393,9 @@ const repos = [
 		}
 	}
 
+	main {
+		container-type: inline-size;
+	}
 	section {
 		margin-block: 0 80px;
 	}
@@ -432,17 +444,18 @@ const repos = [
 		padding: 0;
 		margin: 0;
 		display: grid;
-		gap: 24px;
-		grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+		gap: 16px;
 	}
+	/* Full-width bands: the content column is never wide enough for three readable columns. */
 	.features li {
 		color: var(--on-fill);
 		border: 4px solid var(--on-fill);
 		border-radius: var(--r-panel);
-		padding: 32px;
-		font-size: 1.375rem;
+		padding: 20px 28px;
+		font-size: clamp(1.25rem, 2.4vw, 1.625rem);
 		font-weight: 700;
 		line-height: 1.2;
+		text-wrap: balance;
 	}
 	.features li:nth-child(3n + 1) {
 		background: var(--accent);
@@ -460,8 +473,10 @@ const repos = [
 		background: var(--page);
 		overflow: hidden;
 	}
+	/* Set widths for the name, example and price; the description takes the rest. */
 	.parts {
 		width: 100%;
+		table-layout: fixed;
 		border-collapse: collapse;
 		font-size: 1rem;
 	}
@@ -512,15 +527,20 @@ const repos = [
 		color: var(--muted);
 		font-style: italic;
 	}
+	.parts .col-name {
+		width: 22%;
+	}
+	.parts .col-example {
+		width: 28%;
+	}
+	.parts .col-price {
+		width: 10%;
+	}
 	.parts .name {
 		font-weight: 700;
-		width: 13rem;
 	}
 	.parts .desc {
 		color: var(--muted);
-	}
-	.parts .example {
-		width: 16rem;
 	}
 	.parts .num {
 		text-align: right;
@@ -544,9 +564,13 @@ const repos = [
 		border-radius: var(--r-pill);
 		vertical-align: 0.12em;
 	}
-	/* On a phone each component becomes a card: name and description across the top, then one line
-	   per option with its price at the right. */
-	@media (max-width: 44rem) {
+	/* Where the content column is narrow (a phone, or beside the sidebar on a small laptop) each
+	   component becomes a card: name and description across the top, then one line per option with
+	   its price at the right. */
+	@container (max-width: 40rem) {
+		.parts colgroup {
+			display: none;
+		}
 		.parts thead {
 			position: absolute;
 			width: 1px;
