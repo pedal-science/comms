@@ -93,7 +93,20 @@ project stands on (Linux PREEMPT_RT, Qt, the Raspberry Pi firmware).
 
 ## Design
 
-- One column, phone first; dark by default, light mode equal.
+- One column, phone first; light and dark modes equal, following the system's setting.
+- **The Creative Commons site's design language** (decided 2026-10-31), as creativecommons.org
+  actually renders it, not its brand: DM Sans for text and DM Mono for labels, captions and
+  identifiers; black on white; 4px black outlines; 20px corners on panels, 16px on images, pills
+  for buttons and tabs; neon green `#adff00`, pink `#ff9cff` and peach `#ffd9cc` as fills,
+  highlighter bands and hard 4px offset shadows; indigo `#2e1fb8` for link hover and focus. CC's
+  own typeface (CC Accidenz Commons), its mark and its blob illustrations are its brand and are not
+  used.
+- Neon is never text on a light page (1.2:1). In dark mode the page is black and neon becomes the
+  text accent (17:1). Muted grey `#767676` passes AA on white but not on `#f9f9f9`, so it never
+  sits on the raised colour. Every text element passes AA in both modes.
+- The layout keeps the sidebar and the vertical section tabs: the sidebar is a neon panel (near
+  black in dark mode), the wordmark is `pedal` over `.science` with a highlighter band, and the tab
+  for the section in view is filled.
 - The 3D model carries the visuals: renders, not stock photography, until the real case is built;
   then photos of the real thing beside the renders.
 - Diagrams as SVG.

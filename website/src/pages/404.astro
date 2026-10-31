@@ -2,8 +2,24 @@
 import Base from '../layouts/Base.astro';
 ---
 <Base title="Not found · pedal.science" description="This page does not exist.">
-	<main style="max-width: 72rem; margin: 0 auto; padding: 4rem 16px;">
-		<h1>Not here.</h1>
-		<p>That page doesn’t exist (yet). <a href="/">Back to pedal.science</a>.</p>
+	<main class="not-found">
+		<h1>Not <span class="mark">here</span>.</h1>
+		<p>That page doesn’t exist (yet).</p>
+		<a class="button" href="/">Back to pedal.science</a>
 	</main>
 </Base>
+
+<style>
+	.not-found {
+		max-width: 64rem;
+		margin: 0 auto;
+		padding: 64px 16px;
+	}
+	h1 {
+		font-size: clamp(2.5rem, 6vw, 4.5rem);
+		margin: 0 0 16px;
+	}
+	p {
+		margin: 0 0 32px;
+	}
+</style>

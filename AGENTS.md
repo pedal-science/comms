@@ -34,7 +34,8 @@ that live elsewhere.
   market, and low-latency switching at that load without dropouts or artefacts. It is the owner's
   assessment; `docs/claims.md` section 5 tracks the comparison that would substantiate it, and
   publishing does not wait on it.
-- **It is not a product**: no prices, nothing for sale, no sales language.
+- **It is not a product**: nothing for sale, no sales language. The only prices are the website's
+  approximate prices for the parts a builder buys themselves (owner, 2026-10-31).
 - **Captures and IRs** heard are publicly available; credit their authors. Don't commit the `.nam`
   or IR files themselves here — link to where they are published.
 - **The audio in the video is the pedal's own output**, recorded at the jack, and is not edited

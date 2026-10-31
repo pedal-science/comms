@@ -15,8 +15,8 @@ Attribute it as "Rik Hemsley, pedal.science", with a link to https://pedal.scien
 
 These stay under their owners' terms:
 
-- `website/public/fonts/lexica-ultralegible/` — the Braille Institute's font, under the SIL Open
-  Font License (its `LICENSE.txt`)
+- DM Sans and DM Mono, the fonts the website serves — Colophon Foundry's, under the SIL Open Font
+  License 1.1, installed from Fontsource at build time and not kept here
 - `website/public/icons/github-*.svg` — GitHub's mark
 - The NAM captures and IRs heard in any recording, which are their authors' and are credited where
   they are used

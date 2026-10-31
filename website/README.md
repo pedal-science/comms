@@ -18,8 +18,7 @@ pnpm's version comes from `packageManager`, Node's from `.node-version`.
 `public/renders/` are JPEG copies of `pedal.project/enclosure/renders/console_*.png` from
 pedal.project `8792bae`. Re-export them from there when the model changes; never edit them here.
 
-Type: the sidebar's title is Piazzolla 900 (Fontsource, `@fontsource/piazzolla`); everything else is
-Lexica Ultralegible, whose four WOFF2 files and OFL licence are in
-`public/fonts/lexica-ultralegible/`, copied from
-[jacobxperez/lexica-ultralegible](https://github.com/jacobxperez/lexica-ultralegible) `fonts/web/`
-at `198700e`. It has Regular and Bold only, so the CSS uses weights 400 and 700.
+Type: DM Sans for text and DM Mono for labels, captions and identifiers, both from Fontsource
+(`@fontsource/dm-sans`, `@fontsource/dm-mono`, SIL OFL 1.1). `Base.astro` imports only the weights
+used: Sans 400 and 700 with their italics, Mono 400 and 500. The look follows the Creative Commons
+site's design language; [outline.md](outline.md), "Design", says what that means here.

@@ -1,7 +1,11 @@
 ---
-// Piazzolla is only the sidebar's title; everything else is Lexica Ultralegible
-// (public/fonts/lexica-ultralegible/, SIL OFL 1.1).
-import '@fontsource/piazzolla/latin-900.css';
+// DM Sans for text, DM Mono for labels, captions and identifiers (Fontsource, SIL OFL 1.1).
+import '@fontsource/dm-sans/latin-400.css';
+import '@fontsource/dm-sans/latin-400-italic.css';
+import '@fontsource/dm-sans/latin-700.css';
+import '@fontsource/dm-sans/latin-700-italic.css';
+import '@fontsource/dm-mono/latin-400.css';
+import '@fontsource/dm-mono/latin-500.css';
 
 interface Props {
 	title: string;
@@ -30,69 +34,54 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 </html>
 
 <style is:global>
-	/* Light: a white page, a muted yellow sidebar, blue-teal ink and a coral accent. Dark: a
-	   near-black page, a muted dark orange sidebar, very light blue-grey text and a muted green
-	   accent. */
+	/* The Creative Commons site's design language (website/outline.md, "Design"): black on white,
+	   thick black outlines, big rounded corners, pill buttons, and neon green, pink and peach as
+	   fills and hard offset shadows. Neon is never text on a light page (1.2:1); in dark mode the
+	   page is black and neon is the text accent (17:1). Muted grey is never put on --raised, where
+	   it fails AA. */
 	:root {
 		--page: #ffffff;
-		--raised: #fbf9f4;
-		--line: #e3ddcf;
-		--text: #1d2a33;
-		--ink: #0b5266;
-		--muted: #56636d;
-		--accent: #c64538;
-		--button: #c64538;
-		--accent-ink: #ffffff;
-		--sidebar: #ebdcab;
-		--tab: #ffffff;
+		--raised: #f9f9f9;
+		--line: #000000;
+		--rule: #e0e0e0;
+		--text: #000000;
+		--muted: #767676;
+		--accent: #adff00;
+		--accent-2: #ff9cff;
+		--panel: #ffd9cc;
+		--on-fill: #000000;
+		--link-hover: #2e1fb8;
+		--focus: #2e1fb8;
+		--button: #000000;
+		--button-ink: #ffffff;
+		--sidebar: #adff00;
+		--highlight: #adff00;
+
+		--r-panel: 20px;
+		--r-img: 16px;
+		--r-pill: 60px;
+		--lift: 4px 4px 0 var(--accent);
 		--measure: 68ch;
-		--serif: 'Piazzolla', Georgia, serif;
-		--sans: 'Lexica Ultralegible', system-ui, -apple-system, 'Segoe UI', sans-serif;
+		--sans: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+		--mono: 'DM Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 		color-scheme: light;
 	}
 	@media (prefers-color-scheme: dark) {
 		:root {
-			--page: #121519;
-			--raised: #1a1e23;
-			--line: #2d333b;
-			--text: #dbe3ea;
-			--ink: #e8eef3;
-			--muted: #9eabb6;
-			--accent: #8fbf9b;
-			--button: #3f7552;
-			--accent-ink: #0f1c14;
-			--sidebar: #5b3d26;
-			--tab: #121519;
+			--page: #000000;
+			--raised: #111111;
+			--line: #333333;
+			--rule: #333333;
+			--text: #f9f9f9;
+			--muted: #999999;
+			--link-hover: #adff00;
+			--focus: #adff00;
+			--button: #adff00;
+			--button-ink: #000000;
+			--sidebar: #111111;
+			--highlight: transparent;
 			color-scheme: dark;
 		}
-	}
-	@font-face {
-		font-family: 'Lexica Ultralegible';
-		src: url('/fonts/lexica-ultralegible/LexicaUltralegible-Regular.woff2') format('woff2');
-		font-weight: 400;
-		font-style: normal;
-		font-display: swap;
-	}
-	@font-face {
-		font-family: 'Lexica Ultralegible';
-		src: url('/fonts/lexica-ultralegible/LexicaUltralegible-Italic.woff2') format('woff2');
-		font-weight: 400;
-		font-style: italic;
-		font-display: swap;
-	}
-	@font-face {
-		font-family: 'Lexica Ultralegible';
-		src: url('/fonts/lexica-ultralegible/LexicaUltralegible-Bold.woff2') format('woff2');
-		font-weight: 700;
-		font-style: normal;
-		font-display: swap;
-	}
-	@font-face {
-		font-family: 'Lexica Ultralegible';
-		src: url('/fonts/lexica-ultralegible/LexicaUltralegible-BoldItalic.woff2') format('woff2');
-		font-weight: 700;
-		font-style: italic;
-		font-display: swap;
 	}
 	*,
 	*::before,
@@ -111,7 +100,11 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 		margin: 0;
 		background: var(--page);
 		color: var(--text);
-		font: 400 17px/1.6 var(--sans);
+		font: 400 18px/1.5 var(--sans);
+	}
+	::selection {
+		background: var(--accent);
+		color: #000000;
 	}
 	img {
 		max-width: 100%;
@@ -121,20 +114,75 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 	a {
 		color: inherit;
 		text-decoration: underline;
-		text-decoration-color: var(--accent);
 		text-decoration-thickness: 1px;
-		text-underline-offset: 0.22em;
-		transition: color 0.2s ease;
+		text-underline-offset: 0.2em;
+		transition: color 0.2s ease, text-decoration-color 0.2s ease;
 	}
 	a:hover {
-		color: var(--accent);
+		color: var(--link-hover);
+		text-decoration-thickness: 2px;
+	}
+	:focus-visible {
+		outline: 3px solid var(--focus);
+		outline-offset: 2px;
 	}
 	h1,
 	h2,
 	h3 {
 		font-family: var(--sans);
 		font-weight: 700;
-		line-height: 1.15;
-		color: var(--ink);
+		line-height: 1.1;
+		letter-spacing: -0.01em;
+		color: var(--text);
+	}
+
+	/* The pill button: black on white, neon on black. It presses down onto its shadow. */
+	.button {
+		display: inline-flex;
+		align-items: center;
+		gap: 12px;
+		padding: 12px 24px;
+		border-radius: var(--r-pill);
+		background: var(--button);
+		color: var(--button-ink);
+		font-weight: 700;
+		text-decoration: none;
+		box-shadow: var(--lift);
+		transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+	}
+	.button:hover {
+		color: var(--button-ink);
+		background: var(--link-hover);
+	}
+	.button:active {
+		transform: translate(4px, 4px);
+		box-shadow: 0 0 0 var(--accent);
+	}
+	@media (prefers-color-scheme: dark) {
+		.button {
+			box-shadow: 4px 4px 0 var(--accent-2);
+		}
+		.button:hover {
+			background: var(--accent-2);
+		}
+	}
+
+	/* A highlighter band behind text: neon on white. In dark mode the text turns neon instead. */
+	.mark {
+		background: linear-gradient(transparent 58%, var(--highlight) 58%, var(--highlight) 92%, transparent 92%);
+		padding-inline: 0.06em;
+	}
+	@media (prefers-color-scheme: dark) {
+		.mark {
+			color: var(--accent);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		*,
+		*::before,
+		*::after {
+			transition-duration: 0.01ms !important;
+		}
 	}
 </style>
