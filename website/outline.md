@@ -124,8 +124,10 @@ section; the hero uses a pre-rendered loop, which loads faster.
 
 - Name and domain: **pedal.science**.
 - All the repositories are public, in the `pedal-science` GitHub org; the site links to them.
-- Licence: **MIT** for every repository, software and hardware designs alike (a `LICENSE` file at
-  each repository's top level).
+- Licence: **MIT** for software, **CERN-OHL-P-2.0** for hardware designs, and **CC BY 4.0** for
+  this site and the video (2026-10-31, replacing MIT for everything). Each repository says which
+  covers what: one `LICENSE` where it has one licence, `LICENSE-<licence>` files and a
+  `LICENSING.md` where it has two. The policy is `pedal.project/licensing/README.md`.
 - Publishing does not wait on re-measurement or comparisons.
 - The 3D model of the new enclosure and screen is used on the site.
 
