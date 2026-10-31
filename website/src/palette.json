@@ -1,0 +1,167 @@
+{
+	"about": "The website’s colours in light and dark mode. A value is a hex colour, transparent, or another colour’s name. Base.astro turns this into CSS; the palette tool (Alt+Shift+P on the site) edits it live and downloads a new copy of this file.",
+	"colours": {
+		"page": {
+			"group": "Page",
+			"use": "Page background",
+			"light": "#ffffff",
+			"dark": "#000000"
+		},
+		"raised": {
+			"group": "Page",
+			"use": "Table headings and other raised surfaces",
+			"light": "#f9f9f9",
+			"dark": "#111111"
+		},
+		"text": {
+			"group": "Page",
+			"use": "Body text and headings",
+			"light": "#000000",
+			"dark": "#f9f9f9"
+		},
+		"muted": {
+			"group": "Page",
+			"use": "Captions and secondary text (never on raised: it fails AA there)",
+			"light": "#767676",
+			"dark": "#999999"
+		},
+		"line": {
+			"group": "Page",
+			"use": "Thick outlines: panels, images, the tab strip",
+			"light": "#000000",
+			"dark": "#333333"
+		},
+		"rule": {
+			"group": "Page",
+			"use": "Thin dividers between table rows and sources",
+			"light": "#e0e0e0",
+			"dark": "#333333"
+		},
+		"accent": {
+			"group": "Fills",
+			"use": "Neon: a feature band, shadows, the highlighter, selected text",
+			"light": "#adff00",
+			"dark": "#adff00"
+		},
+		"accent-2": {
+			"group": "Fills",
+			"use": "Pink: a feature band, list markers, tags",
+			"light": "#ff9cff",
+			"dark": "#ff9cff"
+		},
+		"panel": {
+			"group": "Fills",
+			"use": "Peach: a feature band",
+			"light": "#ffd9cc",
+			"dark": "#ffd9cc"
+		},
+		"on-fill": {
+			"group": "Fills",
+			"use": "Text and outlines on the neon, pink and peach fills",
+			"light": "#000000",
+			"dark": "#000000"
+		},
+		"shadow": {
+			"group": "Fills",
+			"use": "The images’ offset shadow",
+			"light": "accent",
+			"dark": "accent"
+		},
+		"link-hover": {
+			"group": "Links",
+			"use": "Links under the pointer",
+			"light": "#2e1fb8",
+			"dark": "#adff00"
+		},
+		"focus": {
+			"group": "Links",
+			"use": "The keyboard focus ring",
+			"light": "#2e1fb8",
+			"dark": "#adff00"
+		},
+		"button": {
+			"group": "Buttons",
+			"use": "Button background",
+			"light": "#000000",
+			"dark": "#adff00"
+		},
+		"button-ink": {
+			"group": "Buttons",
+			"use": "Button text and icon",
+			"light": "#ffffff",
+			"dark": "#000000"
+		},
+		"button-hover": {
+			"group": "Buttons",
+			"use": "Button background under the pointer",
+			"light": "link-hover",
+			"dark": "accent-2"
+		},
+		"button-shadow": {
+			"group": "Buttons",
+			"use": "Button offset shadow",
+			"light": "accent",
+			"dark": "accent-2"
+		},
+		"highlight": {
+			"group": "Highlighter",
+			"use": "The band behind marked words",
+			"light": "accent",
+			"dark": "transparent"
+		},
+		"mark-text": {
+			"group": "Highlighter",
+			"use": "Marked words",
+			"light": "text",
+			"dark": "accent"
+		},
+		"sidebar": {
+			"group": "Sidebar",
+			"use": "Sidebar and tab strip background",
+			"light": "accent",
+			"dark": "#111111"
+		},
+		"sidebar-text": {
+			"group": "Sidebar",
+			"use": "Sidebar text",
+			"light": "on-fill",
+			"dark": "text"
+		},
+		"sidebar-highlight": {
+			"group": "Sidebar",
+			"use": "The wordmark’s band",
+			"light": "accent-2",
+			"dark": "highlight"
+		},
+		"sidebar-mark-text": {
+			"group": "Sidebar",
+			"use": "The wordmark’s marked word",
+			"light": "sidebar-text",
+			"dark": "mark-text"
+		},
+		"sidebar-button-shadow": {
+			"group": "Sidebar",
+			"use": "The GitHub button’s shadow",
+			"light": "accent-2",
+			"dark": "button-shadow"
+		},
+		"tab-border": {
+			"group": "Tabs",
+			"use": "Section tab and theme switch outline",
+			"light": "on-fill",
+			"dark": "line"
+		},
+		"tab-active": {
+			"group": "Tabs",
+			"use": "The current section tab and theme",
+			"light": "on-fill",
+			"dark": "accent"
+		},
+		"tab-active-text": {
+			"group": "Tabs",
+			"use": "Their text",
+			"light": "page",
+			"dark": "on-fill"
+		}
+	}
+}

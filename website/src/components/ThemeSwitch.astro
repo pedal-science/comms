@@ -1,0 +1,91 @@
+---
+// Light, dark, or follow the system. Hidden until its script runs, since without it it does nothing.
+const options = [
+	{ value: 'light', label: 'Light' },
+	{ value: 'dark', label: 'Dark' },
+	{ value: 'auto', label: 'Auto' },
+];
+---
+<fieldset class="theme-switch" hidden>
+	<legend>Theme</legend>
+	<div class="options">
+		{options.map((o) => (
+			<label>
+				<input type="radio" name="theme" value={o.value} />
+				{o.label}
+			</label>
+		))}
+	</div>
+</fieldset>
+
+<script>
+	import { onThemeChange, setTheme, theme, type Theme } from '../scripts/theme';
+
+	for (const set of document.querySelectorAll<HTMLFieldSetElement>('.theme-switch')) {
+		const inputs = [...set.querySelectorAll<HTMLInputElement>('input')];
+		const sync = () => inputs.forEach((i) => (i.checked = i.value === theme()));
+		inputs.forEach((i) => i.addEventListener('change', () => setTheme(i.value as Theme)));
+		onThemeChange(sync);
+		sync();
+		set.hidden = false;
+	}
+</script>
+
+<style>
+	.theme-switch {
+		border: 0;
+		margin: 0;
+		padding: 0;
+		min-width: 0;
+	}
+	.theme-switch[hidden] {
+		display: none;
+	}
+	legend {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+	}
+	.options {
+		display: inline-flex;
+		background: var(--page);
+		border: 4px solid var(--tab-border);
+		border-radius: var(--r-pill);
+	}
+	.options:has(:focus-visible) {
+		outline: 3px solid var(--focus);
+		outline-offset: 2px;
+	}
+	label {
+		position: relative;
+		padding: 4px 12px;
+		border-radius: var(--r-pill);
+		color: var(--text);
+		font-family: var(--mono);
+		font-size: 0.75rem;
+		font-weight: 500;
+		letter-spacing: 0.02em;
+		text-transform: uppercase;
+		cursor: pointer;
+		transition: background-color 0.2s ease, color 0.2s ease;
+	}
+	label:hover {
+		text-decoration: underline;
+		text-underline-offset: 0.2em;
+	}
+	label:has(:checked) {
+		background: var(--tab-active);
+		color: var(--tab-active-text);
+		text-decoration: none;
+	}
+	input {
+		position: absolute;
+		opacity: 0;
+		width: 1px;
+		height: 1px;
+		margin: 0;
+	}
+</style>

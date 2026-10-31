@@ -93,7 +93,8 @@ project stands on (Linux PREEMPT_RT, Qt, the Raspberry Pi firmware).
 
 ## Design
 
-- One column, phone first; light and dark modes equal, following the system's setting.
+- One column, phone first; light and dark modes equal, following the system's setting unless the
+  theme switch (Light, Dark, Auto, under the GitHub button) says otherwise.
 - **The Creative Commons site's design language** (decided 2026-10-31), as creativecommons.org
   actually renders it, not its brand: DM Sans for text and DM Mono for labels, captions and
   identifiers; black on white; 4px black outlines; 20px corners on panels, 16px on images, pills
@@ -107,6 +108,10 @@ project stands on (Linux PREEMPT_RT, Qt, the Raspberry Pi firmware).
 - The layout keeps the sidebar and the vertical section tabs: the sidebar is a neon panel (near
   black in dark mode), the wordmark is `pedal` over `.science` with a highlighter band, and the tab
   for the section in view is filled.
+- **The colours are one file**, `src/palette.json`: every colour in both modes, by name, with what
+  it is used for. A value is a hex colour, `transparent`, or another colour's name, which it then
+  follows. No stylesheet holds a colour or a dark-mode rule of its own; anything that differs
+  between the modes is a named colour there.
 - The 3D model carries the visuals: renders, not stock photography, until the real case is built;
   then photos of the real thing beside the renders.
 - Diagrams as SVG.

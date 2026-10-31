@@ -6,6 +6,7 @@ import '@fontsource/dm-sans/latin-700.css';
 import '@fontsource/dm-sans/latin-700-italic.css';
 import '@fontsource/dm-mono/latin-400.css';
 import '@fontsource/dm-mono/latin-500.css';
+import { paletteCss, values } from '../palette';
 
 interface Props {
 	title: string;
@@ -27,9 +28,41 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={new URL('/renders/console_1_hero.jpg', Astro.site)} />
 		<meta name="color-scheme" content="light dark" />
+		<style is:inline set:html={paletteCss(values('light'), values('dark'))} />
+		<script is:inline>
+			// Before the first paint: the theme switch's choice (scripts/theme.ts) and the palette
+			// tool's unsaved edits (scripts/palette-tool.ts), so neither flashes the file's colours.
+			try {
+				const t = localStorage.getItem('pedal.theme');
+				if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+				const edits = JSON.parse(localStorage.getItem('pedal.palette-tool') || 'null');
+				if (edits && edits.css) {
+					const style = document.createElement('style');
+					style.id = 'palette-tool-edits';
+					style.textContent = edits.css;
+					document.head.append(style);
+				}
+			} catch {}
+		</script>
 	</head>
 	<body>
 		<slot />
+		<script>
+			// The palette tool: Alt+Shift+P (Option+Shift+P on a Mac), or ?palette in the address. It
+			// is loaded only when asked for, and comes back open after a reload if it was left open.
+			const load = () => import('../scripts/palette-tool');
+			addEventListener('keydown', (e) => {
+				if (e.altKey && e.shiftKey && !e.ctrlKey && !e.metaKey && e.code === 'KeyP') {
+					e.preventDefault();
+					load().then((m) => m.toggle());
+				}
+			});
+			let open = new URLSearchParams(location.search).has('palette');
+			try {
+				open ||= JSON.parse(localStorage.getItem('pedal.palette-tool') || 'null')?.open === true;
+			} catch {}
+			if (open) load().then((m) => m.show());
+		</script>
 	</body>
 </html>
 
@@ -38,50 +71,15 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 	   thick black outlines, big rounded corners, pill buttons, and neon green, pink and peach as
 	   fills and hard offset shadows. Neon is never text on a light page (1.2:1); in dark mode the
 	   page is black and neon is the text accent (17:1). Muted grey is never put on --raised, where
-	   it fails AA. */
+	   it fails AA. The colours, both modes, are src/palette.json, written into the head above. */
 	:root {
-		--page: #ffffff;
-		--raised: #f9f9f9;
-		--line: #000000;
-		--rule: #e0e0e0;
-		--text: #000000;
-		--muted: #767676;
-		--accent: #adff00;
-		--accent-2: #ff9cff;
-		--panel: #ffd9cc;
-		--on-fill: #000000;
-		--link-hover: #2e1fb8;
-		--focus: #2e1fb8;
-		--button: #000000;
-		--button-ink: #ffffff;
-		--sidebar: #adff00;
-		--highlight: #adff00;
-
 		--r-panel: 20px;
 		--r-img: 16px;
 		--r-pill: 60px;
-		--lift: 4px 4px 0 var(--accent);
+		--lift: 4px 4px 0 var(--shadow);
 		--measure: 68ch;
 		--sans: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
 		--mono: 'DM Mono', ui-monospace, 'SF Mono', Menlo, monospace;
-		color-scheme: light;
-	}
-	@media (prefers-color-scheme: dark) {
-		:root {
-			--page: #000000;
-			--raised: #111111;
-			--line: #333333;
-			--rule: #333333;
-			--text: #f9f9f9;
-			--muted: #999999;
-			--link-hover: #adff00;
-			--focus: #adff00;
-			--button: #adff00;
-			--button-ink: #000000;
-			--sidebar: #111111;
-			--highlight: transparent;
-			color-scheme: dark;
-		}
 	}
 	*,
 	*::before,
@@ -104,7 +102,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 	}
 	::selection {
 		background: var(--accent);
-		color: #000000;
+		color: var(--on-fill);
 	}
 	img {
 		max-width: 100%;
@@ -147,35 +145,23 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 		color: var(--button-ink);
 		font-weight: 700;
 		text-decoration: none;
-		box-shadow: var(--lift);
+		box-shadow: 4px 4px 0 var(--button-shadow);
 		transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 	}
 	.button:hover {
 		color: var(--button-ink);
-		background: var(--link-hover);
+		background: var(--button-hover);
 	}
 	.button:active {
 		transform: translate(4px, 4px);
-		box-shadow: 0 0 0 var(--accent);
-	}
-	@media (prefers-color-scheme: dark) {
-		.button {
-			box-shadow: 4px 4px 0 var(--accent-2);
-		}
-		.button:hover {
-			background: var(--accent-2);
-		}
+		box-shadow: 0 0 0 var(--button-shadow);
 	}
 
 	/* A highlighter band behind text: neon on white. In dark mode the text turns neon instead. */
 	.mark {
 		background: linear-gradient(transparent 58%, var(--highlight) 58%, var(--highlight) 92%, transparent 92%);
 		padding-inline: 0.06em;
-	}
-	@media (prefers-color-scheme: dark) {
-		.mark {
-			color: var(--accent);
-		}
+		color: var(--mark-text);
 	}
 
 	@media (prefers-reduced-motion: reduce) {
