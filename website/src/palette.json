@@ -59,7 +59,7 @@
 			"group": "Fills",
 			"use": "Text and outlines on the feature bands and tags, and selected text",
 			"light": "#000000",
-			"dark": "#cfcfcf"
+			"dark": "#dadada"
 		},
 		"shadow": {
 			"group": "Fills",
@@ -95,7 +95,7 @@
 			"group": "Buttons",
 			"use": "Button background under the pointer",
 			"light": "link-hover",
-			"dark": "#327d83"
+			"dark": "#2e7278"
 		},
 		"button-shadow": {
 			"group": "Buttons",
@@ -113,7 +113,7 @@
 			"group": "Highlighter",
 			"use": "Marked words",
 			"light": "text",
-			"dark": "accent"
+			"dark": "#2a95a7"
 		},
 		"sidebar": {
 			"group": "Sidebar",
