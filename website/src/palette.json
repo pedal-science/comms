@@ -39,25 +39,25 @@
 		},
 		"accent": {
 			"group": "Fills",
-			"use": "Neon: a feature band, shadows, the highlighter, selected text",
+			"use": "Every third feature band, selected text, and the colours that follow it: shadows, the highlighter, the light sidebar",
 			"light": "#eccda0",
 			"dark": "#016879"
 		},
 		"accent-2": {
 			"group": "Fills",
-			"use": "Pink: a feature band, list markers, tags",
+			"use": "Every third feature band, list markers, tags",
 			"light": "#aad9fc",
 			"dark": "#345378"
 		},
 		"panel": {
 			"group": "Fills",
-			"use": "Peach: a feature band",
+			"use": "Every third feature band",
 			"light": "#c8c5fd",
 			"dark": "#3b3158"
 		},
 		"on-fill": {
 			"group": "Fills",
-			"use": "Text and outlines on the neon, pink and peach fills",
+			"use": "Text and outlines on the feature bands and tags, and selected text",
 			"light": "#000000",
 			"dark": "#cfcfcf"
 		},

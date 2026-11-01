@@ -67,11 +67,11 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 </html>
 
 <style is:global>
-	/* The Creative Commons site's design language (website/outline.md, "Design"): black on white,
-	   thick black outlines, big rounded corners, pill buttons, and neon green, pink and peach as
-	   fills and hard offset shadows. Neon is never text on a light page (1.2:1); in dark mode the
-	   page is black and neon is the text accent (17:1). Muted grey is never put on --raised, where
-	   it fails AA. The colours, both modes, are src/palette.json, written into the head above. */
+	/* The Creative Commons site's design language (website/outline.md, "Design"): plain text on a
+	   plain page, thick outlines, big rounded corners, pill buttons, filled bands and hard offset
+	   shadows. The accent is never text on a light page, where it has too little contrast. Muted
+	   text is never put on --raised, where it fails AA in light mode. The colours, both modes, are
+	   src/palette.json, written into the head above. */
 	:root {
 		--r-panel: 20px;
 		--r-img: 16px;
@@ -134,7 +134,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 		color: var(--text);
 	}
 
-	/* The pill button: black on white, neon on black. It presses down onto its shadow. */
+	/* The pill button. It presses down onto its shadow. */
 	.button {
 		display: inline-flex;
 		align-items: center;
@@ -157,7 +157,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 		box-shadow: 0 0 0 var(--button-shadow);
 	}
 
-	/* A highlighter band behind text: neon on white. In dark mode the text turns neon instead. */
+	/* A highlighter band behind marked words. A mode can drop the band and colour the words instead. */
 	.mark {
 		background: linear-gradient(transparent 58%, var(--highlight) 58%, var(--highlight) 92%, transparent 92%);
 		padding-inline: 0.06em;
