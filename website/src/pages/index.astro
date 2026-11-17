@@ -18,22 +18,25 @@ const parts = [
 	{
 		name: 'Core',
 		desc: 'The processing unit. Its job is to handle the effects. It doesn’t need much RAM, but it does need a little processing power.',
-		options: [{ example: 'Raspberry Pi 5 with 1GB RAM', gbp: 40 }],
+		options: [{ example: 'Raspberry Pi 5 with 1GB RAM', gbp: 43 }],
 	},
 	{
 		name: 'Codec',
 		desc: 'The bridge between digital and analogue audio. It needs to support at least one input and one output, 24bit 48kHz.',
-		options: [{ example: 'A WM8960-based breakout board', gbp: 5 }],
+		options: [
+			{ example: 'A WM8960-based breakout board', gbp: 8 },
+			{ example: 'Raspberry Pi Zero 2 W', gbp: 14 },
+		],
 	},
 	{
 		name: 'Analogue input and output',
 		desc: 'Sockets, wires, basic circuits',
-		options: [{ example: 'Various small parts', gbp: 40 }],
+		options: [{ example: 'Various small parts', gbp: 20 }],
 	},
 	{
 		name: 'Control',
 		desc: 'The interface with hardware controls, plus some buttons, dials, switches.',
-		options: [{ example: 'Raspberry Pi Pico and your choice of controls', gbp: 10 }],
+		options: [{ example: 'Raspberry Pi Pico and your choice of controls', gbp: 20 }],
 	},
 	{
 		name: 'Screen',
@@ -41,16 +44,14 @@ const parts = [
 		desc: 'Touchscreen for direct control (or you can use the app), or something more basic if you don’t want to edit on the pedal itself.',
 		options: [
 			{ example: '8.8″ wide touchscreen', gbp: 55 },
+			{ example: '4.3″ QLED', gbp: 40 },
 			{ example: '2.4″ LCD', gbp: 8 },
 		],
 	},
 	{
 		name: 'Case',
-		desc: 'Lots of options. The components aren’t huge, but letting Core breathe is a good idea.',
-		options: [
-			{ example: 'Hammond 1456RH3', gbp: 55 },
-			{ example: '1590DD', gbp: 10 },
-		],
+		desc: 'The bigger, the more space for a fancy screen, lots of footswitches and lots of connection options. The first prototype has ridiculous power thanks to a Raspberry Pi 5, three footswitches, a 4.3″ screen, room for guitar + mic inputs, stereo output and MIDI',
+		options: [{ example: 'Hammond 1590DD', gbp: 24 }],
 	},
 ];
 
@@ -121,7 +122,6 @@ const repos = [
 								allowfullscreen
 							></iframe>
 						</div>
-						<figcaption>The prototype playing.</figcaption>
 					</figure>
 				</section>
 
@@ -142,7 +142,7 @@ const repos = [
 								<col class="col-example" />
 								<col class="col-price" />
 							</colgroup>
-							<caption>Prices are approximate, in pounds sterling.</caption>
+							<caption>Prices are approximate.</caption>
 							<thead>
 								<tr>
 									<th scope="col">Component</th>
@@ -181,7 +181,6 @@ const repos = [
 								allowfullscreen
 							></iframe>
 						</div>
-						<figcaption>The prototype’s tuner in action.</figcaption>
 					</figure>
 				</section>
 
