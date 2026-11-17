@@ -112,13 +112,16 @@ const repos = [
 						<li>Open source code and designs</li>
 					</ul>
 					<figure>
-						<img
-							src="/renders/console_1_hero.jpg"
-							width="1920"
-							height="1080"
-							alt="Design render of the pedal: a black sloped console with a wide touchscreen above a row of five footswitches."
-						/>
-						<figcaption>Design render of the console model. Control positions are provisional.</figcaption>
+						<div class="video">
+							<iframe
+								src="https://www.youtube-nocookie.com/embed/6a3qrW5Ypbg?playsinline=1"
+								title="Video: pedal prototype plays"
+								allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share"
+								referrerpolicy="strict-origin-when-cross-origin"
+								allowfullscreen
+							></iframe>
+						</div>
+						<figcaption>The prototype playing.</figcaption>
 					</figure>
 				</section>
 
@@ -168,14 +171,17 @@ const repos = [
 						</table>
 					</div>
 					<figure>
-						<img
-							src="/renders/console_2_exploded.jpg"
-							width="1920"
-							height="1080"
-							loading="lazy"
-							alt="Exploded design render: the console cover with footswitches and controls, the touchscreen, the Raspberry Pi 5, Pico 2, codec, input board and output boards, above the case base."
-						/>
-						<figcaption>The console model, exploded.</figcaption>
+						<div class="video">
+							<iframe
+								src="https://www.youtube-nocookie.com/embed/1e_F8aCT63Q?playsinline=1"
+								title="Video: pedal prototype tunes"
+								loading="lazy"
+								allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share"
+								referrerpolicy="strict-origin-when-cross-origin"
+								allowfullscreen
+							></iframe>
+						</div>
+						<figcaption>The prototype being tuned.</figcaption>
 					</figure>
 				</section>
 
@@ -411,10 +417,23 @@ const repos = [
 	figure {
 		margin: 40px 0 0;
 	}
-	figure img {
+	figure img,
+	figure .video {
 		border: 4px solid var(--line);
 		border-radius: var(--r-img);
 		box-shadow: var(--lift);
+	}
+	/* 16:9, so the player reserves its height before YouTube loads and the page doesn't shift. */
+	figure .video {
+		aspect-ratio: 16 / 9;
+		overflow: hidden;
+		background: var(--line);
+	}
+	figure .video iframe {
+		display: block;
+		width: 100%;
+		height: 100%;
+		border: 0;
 	}
 	figcaption {
 		font-family: var(--mono);

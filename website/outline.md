@@ -26,9 +26,8 @@ in [../docs/claims.md](../docs/claims.md).
 - **Headline (draft):** "An effects unit you can build. Open from the code to the circuit boards."
 - **Sub-line:** guitar, bass and vocals; neural amp models (NAM) and IRs; capabilities that rival —
   and in places surpass — commercial units.
-- **Visual:** a render of the 3D model — the Hammond sloped console with the 8.8″ screen showing
-  rigpa — slowly turning, until the video exists; then the video's opening as a muted loop. Play
-  button opens the video.
+- **Visual:** the prototype playing, embedded from YouTube — `youtu.be/6a3qrW5Ypbg`, on
+  `youtube-nocookie.com`, 16:9, no autoplay. The visitor presses play.
 - **Calls to action:** *Watch the video* · *See the designs* (GitHub).
 
 ### 2. What it is, in three sentences
@@ -70,12 +69,14 @@ shot (after the footswitches work); until then the section is left out, not fake
 
 ### 6. The hardware
 
-The 3D model, exploded: the enclosure, the screen, the Pi 5, the Pico 2, the codec, the input and
-output boards, the footswitches. Each part labelled with what it does. Beside it, one system diagram:
+Hardware shown both ways: the 3D model, exploded — the enclosure, the screen, the Pi 5, the Pico 2,
+the codec, the input and output boards, the footswitches — and the prototype on video. Each part
+labelled with what it does. Beside it, one system diagram:
 guitar → input board → codec → Pi 5 (the engine on isolated real-time cores, the pedal service, the
 touchscreen UI) → codec → outputs; the Pico with footswitches, MIDI and controls over UART; ljoss on
-an iPad over Wi-Fi. The diagram is exported from `pedal.project/docs/diagrams/`, not redrawn; the
-renders come from `pedal.project/enclosure/` (claim C12).
+an iPad over Wi-Fi. The diagram is exported from `pedal.project/docs/diagrams/`, not redrawn. The
+parts table's figure is the prototype being tuned — `youtu.be/1e_F8aCT63Q` — replacing the exploded
+render (claim C12); the render itself stays in `pedal.project/enclosure/`.
 
 ### 7. Status
 
@@ -112,8 +113,9 @@ project stands on (Linux PREEMPT_RT, Qt, the Raspberry Pi firmware).
   it is used for. A value is a hex colour, `transparent`, or another colour's name, which it then
   follows. No stylesheet holds a colour or a dark-mode rule of its own; anything that differs
   between the modes is a named colour there.
-- The 3D model carries the visuals: renders, not stock photography, until the real case is built;
-  then photos of the real thing beside the renders.
+- The visuals are the pedal itself: the prototype on video and renders of the 3D model, never stock
+  photography. The two figures are the prototype videos (`youtu.be/6a3qrW5Ypbg`,
+  `youtu.be/1e_F8aCT63Q`); the hero render stays as the social-preview image.
 - Diagrams as SVG.
 
 ## How it is built and hosted
