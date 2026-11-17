@@ -49,6 +49,10 @@ doc until the page exists).
 | Excellent audio | **Excellent audio quality** | A clean signal path, with every measurement published | C8 |
 | Yours | **Open** designs, standard parts | Pi 5, Pico 2, a codec board, analogue boards you can solder: build one for yourself, or for others | C9–C11 |
 
+On the built page these are four full-width bands — 8 NAM, switching, the companion app, open
+source — and a screenshot of ljoss follows them: five rigs in the library and a chain of four
+effects with the level meters (claim C13).
+
 ### 4. Further than what's on the market
 
 Two short statements, from [../docs/message.md](../docs/message.md):
@@ -113,9 +117,10 @@ project stands on (Linux PREEMPT_RT, Qt, the Raspberry Pi firmware).
   it is used for. A value is a hex colour, `transparent`, or another colour's name, which it then
   follows. No stylesheet holds a colour or a dark-mode rule of its own; anything that differs
   between the modes is a named colour there.
-- The visuals are the pedal itself: the prototype on video and renders of the 3D model, never stock
-  photography. The two figures are the prototype videos (`youtu.be/6a3qrW5Ypbg`,
-  `youtu.be/1e_F8aCT63Q`); the hero render stays as the social-preview image.
+- The visuals are the pedal and its software: the prototype on video, renders of the 3D model and
+  screenshots of ljoss, never stock photography. The two figures are the prototype videos
+  (`youtu.be/6a3qrW5Ypbg`, `youtu.be/1e_F8aCT63Q`); the screenshot after Features is
+  `public/shots/ljoss-rig.png`; the hero render stays as the social-preview image.
 - Diagrams as SVG.
 
 ## How it is built and hosted

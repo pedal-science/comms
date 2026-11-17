@@ -7,9 +7,10 @@ import ThemeSwitch from '../components/ThemeSwitch.astro';
 const gh = (repo: string) => `https://github.com/pedal-science/${repo}`;
 
 const features = [
-  '8 NAM A2 Full simultaneously on a Pi 5',
-  'Extremely low latency switching, no glitches',
-  'Open designs, standard parts'
+	'8 NAM A2 Full simultaneously on a Pi 5',
+	'Extremely low latency switching, no glitches',
+	'Companion app',
+	'Open source, open designs, choose your own parts'
 ];
 
 // The hardware table. A component with more than one example lists each as its own option, shown
@@ -130,6 +131,15 @@ const repos = [
 					<ul class="features">
 						{features.map((f) => <li>{f}</li>)}
 					</ul>
+					<figure>
+						<img
+							src="/shots/ljoss-rig.png"
+							width="2360"
+							height="1640"
+							loading="lazy"
+							alt="ljoss, the companion app: the rig library lists five rigs, and the active rig’s chain runs from Input through Low Cut, Tilt EQ, Tape Echo and High Cut, with a level meter on every block."
+						/>
+					</figure>
 				</section>
 
 				<section aria-labelledby="hardware">

@@ -18,7 +18,8 @@ pnpm's version comes from `packageManager`, Node's from `.node-version`.
 `public/renders/` are JPEG copies of `pedal.project/enclosure/renders/console_*.png` from
 pedal.project `8792bae`. Re-export them from there when the model changes; never edit them here.
 The page's two figures are the prototype videos, embedded from YouTube; `console_1_hero.jpg` stays
-as the `og:image`.
+as the `og:image`. `public/shots/` holds the app screenshot that follows Features; it is the bench
+result named in [../docs/claims.md](../docs/claims.md) C13.
 
 Type: DM Sans for text and DM Mono for labels, captions and identifiers, both from Fontsource
 (`@fontsource/dm-sans`, `@fontsource/dm-mono`, SIL OFL 1.1). `Base.astro` imports only the weights
